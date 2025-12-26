@@ -175,7 +175,7 @@
                 </div>
             </div>
             <div class="text-center text-white fw-bold">
-                <p>Copyrigth &copy; {{ date('Y') }} All right seserved</p>
+                <p>Copyright &copy; {{ date('Y') }} All right seserved</p>
             </div>
         </div>
     </footer>

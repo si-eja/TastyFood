@@ -22,4 +22,19 @@ class PageController extends Controller
     public function tentang() {
         return view("tentang");
     }
+    public function admin() {
+        return view("admin.dashadm");
+    }
+    public function adminBerita() {
+        return view("admin.berita");
+    }
+    public function adminGaleri() {
+        return view("admin.galeri");
+    }
+    public function adminKontak() {
+        return view("admin.kontak");
+    }
+    public function adminTentang() {
+        return view("admin.tentang");
+    }
 }
