@@ -48,7 +48,7 @@
         /* CONTENT AREA */
         .content-wrapper {
             margin-left: 260px;
-            padding: 30px;
+            padding: 0px;
         }
         /* OFFCANVAS MOBILE */
         .offcanvas {
@@ -83,7 +83,7 @@
             }
             .content-wrapper {
                 margin-left: 0;
-                padding: 20px;
+                padding: 0px;
             }
         }
     </style>
@@ -165,9 +165,7 @@
     </div>
     {{-- CONTENT --}}
     <div class="content-wrapper">
-        <div class="container">
-            @yield('content')
-        </div>
+        @yield('content')
     </div>
 </body>
 </html>
