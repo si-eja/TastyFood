@@ -2,39 +2,51 @@
 @section('content')
 <section class="container-fluid bg-light" style="min-height: 100vh;">
     <div class="container py-5">
-        <div class="d-flex gap-3 mb-3">
-            {{-- Input Search --}}
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Cari pesan...">
-                <button class="btn btn-outline-secondary" type="button">
-                    <i class="fa fa-search"></i>
-                </button>
+        <div class="d-flex flex-wrap gap-2 mb-3">
+            {{-- SEARCH --}}
+            <div class="input-group flex-grow-1">
+                <span class="input-group-text bg-white">
+                    <i class="fa fa-search text-muted"></i>
+                </span>
+                <input 
+                    type="text" 
+                    class="form-control"
+                    placeholder="Cari nama atau email...">
             </div>
-            {{-- Sesudah CheckBox Pesan --}}
-            <div class="ms-auto d-flex align-items-center gap-2">
-                <button class="btn btn-secondary w-100 d-flex align-items-center gap-2">
-                    <i class="fa fa-envelope-open-text"></i> Tandai Dibaca
-                </button>
-                <button class="btn btn-secondary w-100 d-flex align-items-center gap-2">
-                    <i class="fa fa-rotate-left"></i> Segarkan
-                </button>
-            </div>
+            {{-- BUTTON DIBACA --}}
+            <button class="btn btn-success">
+                <i class="fa fa-check"></i>
+                <span class="d-none d-md-inline">Tandai Dibaca</span>
+            </button>
+            {{-- BUTTON HAPUS --}}
+            <button class="btn btn-danger">
+                <i class="fa fa-trash"></i>
+                <span class="d-none d-md-inline">Hapus</span>
+            </button>
         </div>
         {{-- CARD PESAN --}}
         <div class="card shadow-sm mb-3">
             <div class="card-body d-flex align-items-center gap-3">
                 {{-- CHECKBOX --}}
-                <input type="checkbox" class="form-check-input">
-                {{-- BUTTON PESAN --}}
+                <input 
+                    type="checkbox"
+                    class="form-check-input mt-0">
+                {{-- PESAN (CLICKABLE) --}}
                 <button 
-                    class="btn flex-grow-1 text-start p-0"
+                    class="btn flex-grow-1 text-start p-0 border-0 bg-transparent"
                     data-bs-toggle="modal"
                     data-bs-target="#modalPesan">
-                    <h5 class="mb-1">Pengirim-1</h5>
-                    <small class="text-muted">email@gmail.com</small>
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="mb-1">Pengirim-1</h5>
+                            <small class="text-muted">email@gmail.com</small>
+                        </div>
+                        {{-- STATUS --}}
+                        <span class="badge bg-secondary align-items-center">
+                            Belum Dibaca
+                        </span>
+                    </div>
                 </button>
-                {{-- STATUS --}}
-                <span class="badge bg-secondary">Belum Dibaca</span>
                 {{-- HAPUS --}}
                 <button 
                     class="btn btn-danger btn-sm"

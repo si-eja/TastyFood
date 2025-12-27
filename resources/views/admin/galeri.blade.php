@@ -43,6 +43,7 @@
     .thumb-wrapper:hover .thumb-img {
         transform: scale(1.05);
     }
+    
     /* BANNER */
     .banner-wrapper {
         width: 100%;
