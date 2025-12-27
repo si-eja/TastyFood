@@ -168,9 +168,9 @@
                 <div class="col-md-3">
                     <h4 class="fw-bold">Contact Info</h4>
                     <ul class="list-unstyled">
-                        <li class="mt-3 d-flex"><img src="{{ asset('ASET/Group 66.png') }}" alt="" style="width: 28px; height: 28px;"><p>tastyfood@gmail.com</p></li>
-                        <li class="mt-3 d-flex"><img src="{{ asset('ASET/Group 67.png') }}" alt="" style="width: 28px; height: 28px;"><p>+62 812 3456 7890</p></li>
-                        <li class="mt-3 d-flex"><img src="{{ asset('ASET/Group 68.png') }}" alt="" style="width: 28px; height: 28px;"><p>Bandung, Jawa Barat</p></li>
+                        <li class="mt-3 d-flex"><img src="{{ asset('ASET/ic_markunread_24px.png') }}" alt="" style="width: 16px; height: 16px; margin-right: 10px;"><p>tastyfood@gmail.com</p></li>
+                        <li class="mt-3 d-flex"><img src="{{ asset('ASET/ic_call_24px.png') }}" alt="" style="width: 16px; height: 16px; margin-right: 10px;"><p>+62 812 3456 7890</p></li>
+                        <li class="mt-3 d-flex"><img src="{{ asset('ASET/ic_place_24px.png') }}" alt="" style="width: 16px; height: 16px; margin-right: 10px;"><p>Bandung, Jawa Barat</p></li>
                     </ul>
                 </div>
             </div>

@@ -37,4 +37,7 @@ class PageController extends Controller
     public function adminTentang() {
         return view("admin.tentang");
     }
+    public function login() {
+        return view("login.login");
+    }
 }
