@@ -30,7 +30,7 @@
                 {{-- CHECKBOX --}}
                 <input 
                     type="checkbox"
-                    class="form-check-input mt-0">
+                    class="form-check-input mt-0 p-2 border-secondary">
                 {{-- PESAN (CLICKABLE) --}}
                 <button 
                     class="btn flex-grow-1 text-start p-0 border-0 bg-transparent"
