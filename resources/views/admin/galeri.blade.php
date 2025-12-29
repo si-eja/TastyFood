@@ -81,7 +81,7 @@
 </style>
 <section class="container-fluid bg-light" style="height: 100vh;">
     <div class="container py-5">
-        <div class="rounded shadow p-2">
+        <div class="rounded shadow p-2 mb-2">
             <h5 class="fw-bold">Banner Galeri</h5>
             <hr>
             <div class="row g-3">
