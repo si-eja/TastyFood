@@ -8,20 +8,38 @@
 <section class="bg-body">
     <div class="container py-5">
         <h3 class="fw-bold my-4 mb-5">KONTAK KAMI</h3>
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Berhasil!</strong> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+        @if($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Terjadi kesalahan:</strong>
+                <ul class="mb-0 mt-2">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
         <form action="" method="post">
             @csrf
             <div class="row g-4">
                 <div class="col-12 col-md-6">
-                    <input type="text" class="form-control mb-3 custom-input" placeholder="Subject">
-                    <input type="text" class="form-control mb-3 custom-input" placeholder="Name">
-                    <input type="email" class="form-control custom-input" placeholder="Email">
+                    <input type="text" name="subject" class="form-control mb-3 custom-input" placeholder="Subject">
+                    <input type="text" name="name" class="form-control mb-3 custom-input" placeholder="Name">
+                    <input type="email" name="email" class="form-control custom-input" placeholder="Email">
                 </div>
                 <div class="col-12 col-md-6">
-                    <textarea class="form-control custom-input h-100"
+                    <textarea name="message" class="form-control custom-input h-100"
                         rows="7"
                         placeholder="Message"></textarea>
                 </div>
             </div>
+
             <div class="mt-4">
                 <button type="submit" class="btn btn-dark w-100 py-3 fw-semibold">
                     KIRIM
