@@ -1,26 +1,97 @@
 @extends('login.templog')
 @section('content')
+<style>
+    .login-wrapper {
+        display: flex;
+        background: #000;
+        overflow: hidden;
+        min-height: 580px;
+    }
+    .login-image {
+        flex: 1;
+        position: relative;
+        background-image: url('{{ asset('ASET/brooke-lark-nBtmglfY0HU-unsplash.jpg') }}');
+        background-size: cover;
+        background-position: center;
+    }
+    .login-image::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.45);
+    }
+    .login-image-content {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 60px;
+        color: #fff;
+        z-index: 1;
+    }
+    .login-form {
+        width: 420px;
+        background: #000;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center; /* 🔥 ini penting */
+        padding: 60px 40px;
+    }
+    @media (max-width: 768px) {
+        .container {
+            padding: 0px 12px;
+        }
+        .login-wrapper {
+            min-height: unset;
+            flex-direction: column;
+        }
+        .login-image {
+            height: 200px; /* ukuran kecil */
+            flex: unset;
+            border-radius: 12px 12px 0 0;
+        }
+        .login-image-content {
+            padding: 20px;
+            justify-content: flex-end;
+        }
+        .login-form {
+            width: 100%;
+            padding: 32px 20px;
+            border-radius: 0 0 12px 12px;
+        }
+    }
+</style>
 <div class="container">
-    <div class="row justify-content-center align-items-center" style="min-height: 80vh;">
-        <div class="col-md-6 col-md-4">
-            <div class="card shadow-sm">
-                <div class="card-body p-4">
-                    <h3 class="card-title text-center mb-4 fw-bold">Login</h3>
-                    <form action="#" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="email" class="form-label fw-bold">Email address</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label fw-bold">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
-                        </div>
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary fw-bold">Login</button>
-                        </div>
-                    </form>
+    <div class="login-wrapper my-5 rounded-3 shadow">
+        {{-- IMAGE --}}
+        <div class="login-image rounded-start-3">
+            <div class="login-image-content">
+                <h2 class="fw-bold mb-2">Selamat Datang di Tasty Food</h2>
+                <p class="opacity-75">
+                    Kelola konten dengan mudah
+                </p>
+            </div>
+        </div>
+        {{-- FORM --}}
+        <div class="login-form rounded-end-3">
+            <div class="w-100">
+                <h3 class="fw-bold mb-4">Admin Login</h3>
+                {{-- EMAIL --}}
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control bg-dark text-white border-0">
                 </div>
+                {{-- PASSWORD --}}
+                <div class="mb-4">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-control bg-dark text-white border-0">
+                </div>
+                {{-- BUTTON --}}
+                <button class="btn btn-light w-100 fw-semibold">
+                    Login
+                </button>
             </div>
         </div>
     </div>

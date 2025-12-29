@@ -17,3 +17,6 @@ Route::get('/admin/berita', [PageController::class, 'adminBerita'])->name('admin
 Route::get('/admin/galeri', [PageController::class, 'adminGaleri'])->name('admin.galeri');
 Route::get('/admin/kontak', [PageController::class, 'adminKontak'])->name('admin.kontak');
 Route::get('/admin/tentang', [PageController::class, 'adminTentang'])->name('admin.tentang');
+
+// Login 
+Route::get('/login', [PageController::class, 'login'])->name('login');
