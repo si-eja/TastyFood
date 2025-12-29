@@ -24,16 +24,7 @@
         .navbar-custom {
             transition: all 0.3s ease;
             background: transparent;
-        }
-        /* NAVBAR SAAT SCROLL */
-        .navbar-scrolled {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-            padding-top: 12px !important;
-            padding-bottom: 12px !important;
-        }
+        }y
         /* NAVBAR COLLAPSE MOBILE */
         .navbar-collapse.show {
             background-color: var(--bs-secondary);
@@ -69,21 +60,9 @@
 </head>
 <body>
     {{-- navbar --}}
-    <nav class="navbar navbar-expand-lg fixed-top navbar-custom py-4">
+    <nav class="navbar navbar-expand-lg navbar-custom py-4">
         <div class="container">
             <a class="navbar-brand" href="#">TASTY FOOD</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('tentang') }}">Tentang</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('berita') }}">Berita</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('galeri') }}">Galeri</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('kontak') }}">Kontak</a></li>
-                </ul>
-            </div>
         </div>
     </nav>
     {{-- Konten --}}
@@ -135,14 +114,3 @@
 </html>
 <script src="{{ asset('aos-master/dist/aos.js') }}"></script>
 <script src="{{ asset('Boostrap/js/bootstrap.bundle.min.js') }}"></script>
-<script>
-    window.addEventListener('scroll', function () {
-        const navbar = document.querySelector('.navbar-custom');
-
-        if (window.scrollY > 50) {
-            navbar.classList.add('navbar-scrolled');
-        } else {
-            navbar.classList.remove('navbar-scrolled');
-        }
-    });
-</script>

@@ -11,9 +11,6 @@ Route::get('/galeri',[PageController::class, 'galeri'])->name('galeri');
 Route::get('/kontak',[PageController::class, 'kontak'])->name('kontak');
 Route::get('/tentang',[PageController::class, 'tentang'])->name('tentang');
 
-Route::post('/kontak', [KontakController::class, 'store']);
-
-
 // Admin Tasty Food
 Route::get('/admin', [PageController::class, 'admin'])->name('admin');
 Route::get('/admin/berita', [PageController::class, 'adminBerita'])->name('admin.berita');
