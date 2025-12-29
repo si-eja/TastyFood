@@ -17,7 +17,7 @@
             width: 260px;
             height: 100vh;
             position: fixed;
-            background: #ffffff;
+            background: #fff;
             border-right: 1px solid #e5e5e5;
             padding: 20px;
             display: flex;
