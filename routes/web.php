@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KontakController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
@@ -17,7 +18,10 @@ Route::get('/tentang',[PageController::class, 'tentang'])->name('tentang');
 // Admin Tasty Food
 Route::get('/admin', [PageController::class, 'admin'])->name('admin');
 Route::get('/admin/berita', [PageController::class, 'adminBerita'])->name('admin.berita');
-Route::get('/admin/galeri', [PageController::class, 'adminGaleri'])->name('admin.galeri');
+Route::get('/admin/galeri', [GaleriController::class, 'index'])->name('admin.galeri');
+Route::post('/admin/galeri', [GaleriController::class, 'store'])->name('galeri.store');
+Route::put('/admin/galeri/{galeri}', [GaleriController::class, 'update'])->name('galeri.update');
+Route::delete('/admin/galeri/{galeri}', [GaleriController::class, 'destroy'])->name('galeri.destroy');
 
 // ✅ SATU-SATUNYA route admin kontak
 Route::get('/admin/kontak', [AdminController::class, 'kontak'])

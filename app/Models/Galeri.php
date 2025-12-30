@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Galeri extends Model
 {
-    protected $fillable = [
-        'page_title',
-        'image',
-        'caption',
-        'type',
-        'order',
-        'is_active',
-    ];
+   protected $fillable = [
+    'section',
+    'title',
+    'image',
+    'caption',
+    'order',
+    'is_active'
+];
+
 }

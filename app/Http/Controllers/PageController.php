@@ -2,48 +2,108 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Galeri;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    //
-    public function home() {
-        return view("home");
+    /* =========================
+     * USER PAGES
+     * ========================= */
+
+    public function home()
+    {
+        return view('home');
     }
-    public function berita() {
-        return view("berita");
+
+    public function berita()
+    {
+        return view('berita');
     }
-    public function galeri() {
-        return view("galeri");
+
+    public function detberita()
+    {
+        return view('detber');
     }
-    public function kontak() {
-        return view("kontak"); 
+
+    /**
+     * =========================
+     * GALERI (USER) - DINAMIS
+     * =========================
+     */
+    public function galeri()
+    {
+        // =========================
+        // SLIDER (pakai banner)
+        // =========================
+        $sliders = Galeri::where('section', 'banner')
+            ->where('is_active', 1)
+            ->orderBy('order')
+            ->orderBy('id')
+            ->get();
+
+        // =========================
+        // THUMBNAIL
+        // =========================
+        $thumbnails = Galeri::where('section', 'thumbnail')
+            ->where('is_active', 1)
+            ->orderBy('order')
+            ->orderBy('id')
+            ->get();
+
+        return view('galeri', compact('sliders', 'thumbnails'));
     }
-    public function tentang() {
-        return view("tentang");
+
+    public function kontak()
+    {
+        return view('kontak');
     }
-    public function admin() {
-        return view("admin.dashadm");
+
+    public function tentang()
+    {
+        return view('tentang');
     }
-    public function adminBerita() {
-        return view("admin.berita");
+
+    /* =========================
+     * ADMIN PAGES (STATIC VIEW)
+     * ========================= */
+
+    public function admin()
+    {
+        return view('admin.dashadm');
     }
-    public function adminGaleri() {
-        return view("admin.galeri");
+
+    public function adminBerita()
+    {
+        return view('admin.berita');
     }
-    public function adminKontak() {
-        return view("admin.kontak");
+
+    /**
+     * ❗ DISARANKAN TIDAK DIPAKAI
+     * Admin galeri seharusnya lewat GaleriController
+     */
+    public function adminGaleri()
+    {
+        return redirect()->route('admin.galeri');
     }
-    public function adminTentang() {
-        return view("admin.tentang");
+
+    public function adminKontak()
+    {
+        return view('admin.kontak');
     }
-    public function Adetberita() {
-        return view("admin.detber");
+
+    public function adminTentang()
+    {
+        return view('admin.tentang');
     }
-    public function login() {
-        return view("login.login");
+
+    public function Adetberita()
+    {
+        return view('admin.detber');
     }
-    public function detberita() {
-        return view("detber");
+
+    public function login()
+    {
+        return view('login.login');
     }
 }

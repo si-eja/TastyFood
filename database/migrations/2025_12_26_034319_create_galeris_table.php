@@ -9,20 +9,18 @@ return new class extends Migration {
         Schema::create('galeris', function (Blueprint $table) {
             $table->id();
 
-            // judul halaman (hero)
-            $table->string('page_title')->default('Galeri Kami');
+            // PENANDA KONTEN
+            $table->enum('section', ['banner', 'slider', 'thumbnail']);
 
-            // gambar
-            $table->string('image');        // path gambar
+            // KHUSUS BANNER
+            $table->string('title')->nullable();
+
+            // GAMBAR
+            $table->string('image');
             $table->string('caption')->nullable();
 
-            // tipe tampilan
-            $table->enum('type', ['slider', 'thumbnail'])->default('thumbnail');
-
-            // urutan tampil
+            // URUTAN & STATUS
             $table->integer('order')->default(0);
-
-            // status
             $table->boolean('is_active')->default(true);
 
             $table->timestamps();
