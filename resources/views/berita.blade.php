@@ -15,10 +15,13 @@
             <div class="col-md-6">
                 <div class="berita-besar h-100">
                     <div class="isi d-flex flex-column justify-content-start h-100">
-                        <h2 class="fw-bold mb-3">Judul Berita Terbaru</h2>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="fw-bold mb-3">Judul Berita Terbaru</h2>
+                            <div class="text-muted">12 Juni 2024</div>
+                        </div>
                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium nam magnam sed delectus amet nulla tempora perspiciatis. Perspiciatis, quidem voluptatem vel nemo ea, amet odio quos porro quod, aliquid deleniti!</p>
                         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laudantium nam magnam sed delectus amet nulla tempora perspiciatis. Perspiciatis, quidem voluptatem vel nemo ea, amet odio quos porro quod, aliquid deleniti!</p>
-                        <a href="#" class="btn btn-dark p-4 mb-auto">Baca Selengkapnya</a>
+                        <a href="{{ route('detberita') }}" class="btn btn-dark p-4 mb-auto">Baca Selengkapnya</a>
                     </div>
                 </div>
             </div>
@@ -38,7 +41,7 @@
                     <p class="text-muted small mb-1">
                         Lorem ipsum dolor sit amet consectetur.
                     </p>
-                    <a href="#">Baca selengkapnya →</a>
+                    <a href="{{ route('detberita') }}">Baca selengkapnya →</a>
                 </div>
             </div>
         </div>

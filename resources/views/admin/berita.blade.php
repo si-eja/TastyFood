@@ -20,15 +20,6 @@
         font-size: 14px;
         text-decoration: none;
     }
-    /* berita new */
-    .berita-besar {
-        display: flex;
-        flex-direction: column;
-    }
-    .berita-besar img {
-        height: 350px;
-        object-fit: cover;
-    }
     /* berita mini */
     .berita-card:not(.berita-besar) img {
         height: 200px;
@@ -127,7 +118,7 @@
                             Lorem ipsum dolor sit amet consectetur.
                         </p>
                         <div class="d-flex justify-content-between">
-                            <a href="#">Baca selengkapnya →</a>
+                            <a href="{{ route('Adetberita') }}">Baca selengkapnya →</a>
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                     Aksi

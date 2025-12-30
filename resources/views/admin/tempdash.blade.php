@@ -114,7 +114,7 @@
                 <i class="fa-solid fa-circle-info"></i> Tentang
             </a>
             <a href="{{ route('admin.berita') }}"
-            class="{{ request()->routeIs('admin.berita*') ? 'active' : '' }}">
+            class="{{ request()->Is('admin.berita*') || request()->Is('Adetberita') ? 'active' : '' }}">
                 <i class="fa-solid fa-newspaper"></i> Berita
             </a>
             <a href="{{ route('admin.galeri') }}"

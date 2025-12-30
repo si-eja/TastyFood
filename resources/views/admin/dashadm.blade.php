@@ -88,10 +88,6 @@
                                                 </div>
                                                 <a href="#" class="text-decoration-none text-warning">Baca selengkapnya →</a>
                                             </div>
-                                            <div class="text-muted d-flex align-items-center gap-1">
-                                                <i class="fa-solid fa-user"></i>
-                                                <small>Admin</small>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
