@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class BeritaController extends Controller
 {
-    // LIST
+    // LIST (ADMIN)
     public function index()
     {
         $beritas = Berita::latest()->paginate(10);
@@ -25,15 +25,19 @@ class BeritaController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'page_title' => 'required|string',
-            'judul' => 'required|string',
+            'page_title'  => 'required|string',
+            'judul'       => 'required|string',
             'deskripsi_1' => 'required',
             'deskripsi_2' => 'nullable',
-            'thumbnail' => 'nullable|string',
-            'is_active' => 'boolean',
+            'thumbnail'   => 'nullable|string',
+            'is_active'   => 'nullable|boolean',
         ]);
 
-        $data['slug'] = Str::slug($request->judul);
+        // slug unik
+        $data['slug'] = Str::slug($request->judul) . '-' . uniqid();
+
+        // checkbox safe
+        $data['is_active'] = $request->has('is_active');
 
         Berita::create($data);
 
@@ -54,15 +58,20 @@ class BeritaController extends Controller
         $berita = Berita::findOrFail($id);
 
         $data = $request->validate([
-            'page_title' => 'required|string',
-            'judul' => 'required|string',
+            'page_title'  => 'required|string',
+            'judul'       => 'required|string',
             'deskripsi_1' => 'required',
             'deskripsi_2' => 'nullable',
-            'thumbnail' => 'nullable|string',
-            'is_active' => 'boolean',
+            'thumbnail'   => 'nullable|string',
+            'is_active'   => 'nullable|boolean',
         ]);
 
-        $data['slug'] = Str::slug($request->judul);
+        // update slug hanya jika judul berubah
+        if ($berita->judul !== $request->judul) {
+            $data['slug'] = Str::slug($request->judul) . '-' . uniqid();
+        }
+
+        $data['is_active'] = $request->has('is_active');
 
         $berita->update($data);
 
@@ -73,14 +82,13 @@ class BeritaController extends Controller
     // HAPUS
     public function destroy($id)
     {
-        $berita = Berita::findOrFail($id);
-        $berita->delete();
+        Berita::findOrFail($id)->delete();
 
         return redirect()->route('berita.index')
             ->with('success', 'Berita berhasil dihapus');
     }
 
-    // DETAIL (opsional, frontend nanti)
+    // DETAIL (FRONTEND)
     public function show($slug)
     {
         $berita = Berita::where('slug', $slug)
