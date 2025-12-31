@@ -7,39 +7,68 @@ use Illuminate\Http\Request;
 
 class TentangController extends Controller
 {
-    // halaman edit
-    public function edit()
+    /**
+     * =====================
+     * USER (PUBLIC)
+     * =====================
+     */
+    public function index()
     {
         $tentang = Tentang::first();
-        return view('admin.tentang.edit', compact('tentang'));
+
+        return view('tentang-kami', compact('tentang'));
     }
 
-    // proses update
-    public function update(Request $request)
+    /**
+     * =====================
+     * ADMIN
+     * =====================
+     */
+    public function adminIndex()
     {
         $tentang = Tentang::first();
 
-        $data = $request->validate([
-            'web_title' => 'required|string',
+        // kalau belum ada data, buat default
+        if (!$tentang) {
+            $tentang = Tentang::create([
+                'web_title'    => 'Tentang Kami',
+                'about_title'  => 'Tasty Food',
+                'about_desc_1' => '',
+                'about_desc_2' => '',
+                'visi_desc_1'  => '',
+                'visi_desc_2'  => '',
+                'misi_desc_1'  => '',
+                'misi_desc_2'  => '',
+            ]);
+        }
 
-            'about_title' => 'required|string',
+        return view('admin.tentang', compact('tentang'));
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'web_title'    => 'required|string|max:255',
+            'about_title'  => 'required|string|max:255',
             'about_desc_1' => 'required',
-            'about_desc_2' => 'required',
-            'about_image_1' => 'nullable|string',
-            'about_image_2' => 'nullable|string',
-
-            'visi_desc_1' => 'required',
-            'visi_desc_2' => 'required',
-            'visi_image_1' => 'nullable|string',
-            'visi_image_2' => 'nullable|string',
-
-            'misi_desc_1' => 'required',
-            'misi_desc_2' => 'required',
-            'misi_image' => 'nullable|string',
+            'visi_desc_1'  => 'required',
+            'misi_desc_1'  => 'required',
         ]);
 
-        $tentang->update($data);
+        Tentang::updateOrCreate(
+            ['id' => 1],
+            $request->only([
+                'web_title',
+                'about_title',
+                'about_desc_1',
+                'about_desc_2',
+                'visi_desc_1',
+                'visi_desc_2',
+                'misi_desc_1',
+                'misi_desc_2',
+            ])
+        );
 
-        return redirect()->back()->with('success', 'Data Tentang berhasil diperbarui');
+        return back()->with('success', 'Data Tentang Kami berhasil disimpan');
     }
 }

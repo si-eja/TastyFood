@@ -4,89 +4,104 @@ namespace App\Http\Controllers;
 
 use App\Models\Berita;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
-    // LIST
-    public function index()
+    /**
+     * =========================
+     * HALAMAN ADMIN - LIST BERITA
+     * =========================
+     */
+    public function index(Request $request)
     {
-        $beritas = Berita::latest()->paginate(10);
-        return view('admin.berita.index', compact('beritas'));
+        $query = Berita::latest();
+
+        // SEARCH JUDUL
+        if ($request->search) {
+            $query->where('judul', 'like', '%' . $request->search . '%');
+        }
+
+        $beritas = $query->paginate(8);
+
+        return view('admin.berita', compact('beritas'));
     }
 
-    // FORM TAMBAH
-    public function create()
-    {
-        return view('admin.berita.create');
-    }
-
-    // SIMPAN
+    /**
+     * =========================
+     * SIMPAN BERITA BARU
+     * =========================
+     */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'page_title' => 'required|string',
-            'judul' => 'required|string',
-            'deskripsi_1' => 'required',
-            'deskripsi_2' => 'nullable',
-            'thumbnail' => 'nullable|string',
-            'is_active' => 'boolean',
+        $request->validate([
+            'judul'   => 'required|string|max:255',
+            'konten'  => 'required',
+            'gambar'  => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'tanggal' => 'nullable|date',
         ]);
 
-        $data['slug'] = Str::slug($request->judul);
+        $path = $request->file('gambar')->store('berita', 'public');
 
-        Berita::create($data);
+        $berita = new Berita();
+        $berita->judul   = $request->judul;
+        $berita->konten  = $request->konten;
+        $berita->gambar  = $path;
+        $berita->tanggal = $request->tanggal ?? now();
+        $berita->save();
 
-        return redirect()->route('berita.index')
-            ->with('success', 'Berita berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Berita berhasil ditambahkan');
     }
 
-    // FORM EDIT
-    public function edit($id)
+    /**
+     * =========================
+     * UPDATE BERITA
+     * =========================
+     */
+    public function update(Request $request)
     {
-        $berita = Berita::findOrFail($id);
-        return view('admin.berita.edit', compact('berita'));
-    }
+        $berita = Berita::findOrFail($request->id);
 
-    // UPDATE
-    public function update(Request $request, $id)
-    {
-        $berita = Berita::findOrFail($id);
-
-        $data = $request->validate([
-            'page_title' => 'required|string',
-            'judul' => 'required|string',
-            'deskripsi_1' => 'required',
-            'deskripsi_2' => 'nullable',
-            'thumbnail' => 'nullable|string',
-            'is_active' => 'boolean',
+        $request->validate([
+            'judul'   => 'required|string|max:255',
+            'konten'  => 'required',
+            'gambar'  => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'tanggal' => 'nullable|date',
         ]);
 
-        $data['slug'] = Str::slug($request->judul);
+        // JIKA UPLOAD GAMBAR BARU → HAPUS GAMBAR LAMA
+        if ($request->hasFile('gambar')) {
+            if ($berita->gambar && Storage::disk('public')->exists($berita->gambar)) {
+                Storage::disk('public')->delete($berita->gambar);
+            }
 
-        $berita->update($data);
+            $berita->gambar = $request->file('gambar')->store('berita', 'public');
+        }
 
-        return redirect()->route('berita.index')
-            ->with('success', 'Berita berhasil diperbarui');
+        $berita->judul   = $request->judul;
+        $berita->konten  = $request->konten;
+        $berita->tanggal = $request->tanggal ?? $berita->tanggal;
+        $berita->save();
+
+        return redirect()->back()->with('success', 'Berita berhasil diperbarui');
     }
 
-    // HAPUS
-    public function destroy($id)
+    /**
+     * =========================
+     * HAPUS BERITA
+     * =========================
+     */
+    public function destroy(Request $request)
     {
-        $berita = Berita::findOrFail($id);
+        $berita = Berita::findOrFail($request->id);
+
+        // HAPUS FILE GAMBAR
+        if ($berita->gambar && Storage::disk('public')->exists($berita->gambar)) {
+            Storage::disk('public')->delete($berita->gambar);
+        }
+
         $berita->delete();
 
-        return redirect()->route('berita.index')
-            ->with('success', 'Berita berhasil dihapus');
-    }
-
-    // DETAIL (opsional, frontend nanti)
-    public function show($slug)
-    {
-        $berita = Berita::where('slug', $slug)
-            ->where('is_active', true)
-            ->firstOrFail();
-
-        return view('berita.show', compact('berita'));
+        return redirect()->back()->with('success', 'Berita berhasil dihapus');
     }
 }

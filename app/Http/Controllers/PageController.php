@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Galeri;
+use App\Models\Tentang;
+use App\Models\Berita;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -16,35 +18,50 @@ class PageController extends Controller
         return view('home');
     }
 
+    /**
+     * =========================
+     * BERITA (USER)
+     * =========================
+     */
     public function berita()
     {
-        return view('berita');
-    }
+        $beritaTerbaru = Berita::latest()->first();
 
-    public function detberita()
-    {
-        return view('detber');
+        $beritaLainnya = Berita::latest()
+            ->skip(1)
+            ->paginate(8);
+
+        return view('berita', compact(
+            'beritaTerbaru',
+            'beritaLainnya'
+        ));
     }
 
     /**
      * =========================
-     * GALERI (USER) - DINAMIS
+     * DETAIL BERITA (USER) - DINAMIS
+     * =========================
+     */
+    public function detberita($slug)
+    {
+        $berita = Berita::where('slug', $slug)->firstOrFail();
+
+        return view('detber', compact('berita'));
+    }
+
+    /**
+     * =========================
+     * GALERI (USER)
      * =========================
      */
     public function galeri()
     {
-        // =========================
-        // SLIDER (pakai banner)
-        // =========================
         $sliders = Galeri::where('section', 'banner')
             ->where('is_active', 1)
             ->orderBy('order')
             ->orderBy('id')
             ->get();
 
-        // =========================
-        // THUMBNAIL
-        // =========================
         $thumbnails = Galeri::where('section', 'thumbnail')
             ->where('is_active', 1)
             ->orderBy('order')
@@ -59,13 +76,19 @@ class PageController extends Controller
         return view('kontak');
     }
 
+    /**
+     * =========================
+     * TENTANG KAMI (USER)
+     * =========================
+     */
     public function tentang()
     {
-        return view('tentang');
+        $tentang = Tentang::first();
+        return view('tentang', compact('tentang'));
     }
 
     /* =========================
-     * ADMIN PAGES (STATIC VIEW)
+     * ADMIN PAGES
      * ========================= */
 
     public function admin()
@@ -73,33 +96,27 @@ class PageController extends Controller
         return view('admin.dashadm');
     }
 
-    public function adminBerita()
+    /**
+     * =========================
+     * DETAIL BERITA (ADMIN) - DINAMIS
+     * =========================
+     */
+    public function Adetberita($slug)
     {
-        return view('admin.berita');
+        $berita = Berita::where('slug', $slug)->firstOrFail();
+
+        return view('admin.detber', compact('berita'));
     }
 
     /**
-     * ❗ DISARANKAN TIDAK DIPAKAI
-     * Admin galeri seharusnya lewat GaleriController
+     * =========================
+     * TENTANG KAMI (ADMIN)
+     * =========================
      */
-    public function adminGaleri()
-    {
-        return redirect()->route('admin.galeri');
-    }
-
-    public function adminKontak()
-    {
-        return view('admin.kontak');
-    }
-
     public function adminTentang()
     {
-        return view('admin.tentang');
-    }
-
-    public function Adetberita()
-    {
-        return view('admin.detber');
+        $tentang = Tentang::first();
+        return view('admin.tentang', compact('tentang'));
     }
 
     public function login()

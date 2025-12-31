@@ -3,45 +3,122 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KontakController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TentangController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\BeritaController;
+use Illuminate\Support\Facades\Route;
 
-// Landing Page Tasty Food
-Route::get('/',[PageController::class, 'home'])->name('home');
-Route::get('/berita',[PageController::class, 'berita'])->name('berita');
-Route::get('/detail/berita',[PageController::class, 'detberita'])->name('detberita');
-Route::get('/galeri',[PageController::class, 'galeri'])->name('galeri');
-Route::get('/kontak',[PageController::class, 'kontak'])->name('kontak');
-Route::post('/kontak',[KontakController::class, 'store'])->name('kontak.store');
-Route::get('/tentang',[PageController::class, 'tentang'])->name('tentang');
+/*
+|--------------------------------------------------------------------------
+| USER PAGES
+|--------------------------------------------------------------------------
+*/
+Route::get('/', [PageController::class, 'home'])->name('home');
 
-// Admin Tasty Food
-Route::get('/admin', [PageController::class, 'admin'])->name('admin');
-Route::get('/admin/berita', [PageController::class, 'adminBerita'])->name('admin.berita');
-Route::get('/admin/galeri', [GaleriController::class, 'index'])->name('admin.galeri');
-Route::post('/admin/galeri', [GaleriController::class, 'store'])->name('galeri.store');
-Route::put('/admin/galeri/{galeri}', [GaleriController::class, 'update'])->name('galeri.update');
-Route::delete('/admin/galeri/{galeri}', [GaleriController::class, 'destroy'])->name('galeri.destroy');
+/**
+ * BERITA (USER)
+ */
+Route::get('/berita', [PageController::class, 'berita'])->name('berita');
 
-// ✅ SATU-SATUNYA route admin kontak
-Route::get('/admin/kontak', [AdminController::class, 'kontak'])
-    ->name('admin.kontak');
+Route::get('/detail/berita/{slug}', [PageController::class, 'detberita'])
+    ->name('detberita');
 
-// hapus
-Route::delete('/admin/kontak/{id}', [AdminController::class, 'kontakHapus'])
-    ->name('admin.kontak.hapus');
+/**
+ * GALERI
+ */
+Route::get('/galeri', [PageController::class, 'galeri'])->name('galeri');
 
-// hapus banyak
-Route::delete('/admin/kontak', [AdminController::class, 'kontakHapusBanyak'])
-    ->name('admin.kontak.hapus.banyak');
+/**
+ * KONTAK
+ */
+Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
+Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store');
 
-// tandai dibaca
-Route::patch('/admin/kontak/{id}/dibaca',
-    [AdminController::class, 'kontakTandaiDibaca']
-)->name('admin.kontak.dibaca');
+/**
+ * TENTANG
+ */
+Route::get('/tentang', [PageController::class, 'tentang'])->name('tentang');
 
-Route::get('/admin/tentang', [PageController::class, 'adminTentang'])->name('admin.tentang');
-Route::get('/admin/detail/berita',[PageController::class, 'Adetberita'])->name('Adetberita');
 
-// Login 
-Route::get('/login', [PageController::class, 'login'])->name('login');
+/*
+|--------------------------------------------------------------------------
+| ADMIN AREA
+|--------------------------------------------------------------------------
+*/
+Route::prefix('admin')->group(function () {
+
+    /**
+     * DASHBOARD
+     */
+    Route::get('/', [PageController::class, 'admin'])->name('admin');
+
+    /**
+     * ADMIN BERITA (CRUD)
+     * (tetap pakai POST supaya blade kamu tidak rusak)
+     */
+    Route::get('/berita', [BeritaController::class, 'index'])
+        ->name('admin.berita');
+
+    Route::post('/berita/store', [BeritaController::class, 'store'])
+        ->name('admin.berita.store');
+
+    Route::post('/berita/update', [BeritaController::class, 'update'])
+        ->name('admin.berita.update');
+
+    Route::post('/berita/delete', [BeritaController::class, 'destroy'])
+        ->name('admin.berita.delete');
+
+    /**
+     * ADMIN DETAIL BERITA (DINAMIS – PAKAI SLUG)
+     */
+    Route::get('/detail/berita/{slug}', [PageController::class, 'Adetberita'])
+        ->name('admin.berita.detail');
+
+    /**
+     * ADMIN GALERI
+     */
+    Route::get('/galeri', [GaleriController::class, 'index'])
+        ->name('admin.galeri');
+
+    Route::post('/galeri', [GaleriController::class, 'store'])
+        ->name('galeri.store');
+
+    Route::put('/galeri/{galeri}', [GaleriController::class, 'update'])
+        ->name('galeri.update');
+
+    Route::delete('/galeri/{galeri}', [GaleriController::class, 'destroy'])
+        ->name('galeri.destroy');
+
+    /**
+     * ADMIN KONTAK
+     */
+    Route::get('/kontak', [AdminController::class, 'kontak'])
+        ->name('admin.kontak');
+
+    Route::delete('/kontak/{id}', [AdminController::class, 'kontakHapus'])
+        ->name('admin.kontak.hapus');
+
+    Route::delete('/kontak', [AdminController::class, 'kontakHapusBanyak'])
+        ->name('admin.kontak.hapus.banyak');
+
+    Route::patch('/kontak/{id}/dibaca', [AdminController::class, 'kontakTandaiDibaca'])
+        ->name('admin.kontak.dibaca');
+
+    /**
+     * ADMIN TENTANG
+     */
+    Route::get('/tentang', [PageController::class, 'adminTentang'])
+        ->name('admin.tentang');
+
+    Route::post('/tentang', [TentangController::class, 'update'])
+        ->name('admin.tentang.update');
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| LOGIN
+|--------------------------------------------------------------------------
+*/
+Route::get('/login', [PageController::class, 'login'])
+    ->name('login');
