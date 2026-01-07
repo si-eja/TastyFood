@@ -58,7 +58,7 @@
     <h3 class="fw-bold mb-4">Berita Lainnya</h3>
 
     <div class="row g-3">
-        @forelse($beritaLainnya as $item)
+        @if($beritaLainnya->count())
         <div class="col-md-3">
             <div class="berita-card h-100">
                 <img src="{{ asset('storage/'.$item->gambar) }}" alt="">
@@ -67,7 +67,7 @@
                         {{ $item->judul }}
                     </h6>
                     <p class="text-muted small mb-1">
-                        {{ Str::limit(strip_tags($item->konten), 60) }}
+                        {{ Str::words(strip_tags($item->konten), 7, '...') }}
                     </p>
 
                     {{-- 🔥 FIX DI SINI --}}
@@ -77,9 +77,7 @@
                 </div>
             </div>
         </div>
-        @empty
-            <p class="text-muted text-center">Tidak ada berita lainnya.</p>
-        @endforelse
+        @endif
     </div>
 
     {{-- PAGINATION --}}

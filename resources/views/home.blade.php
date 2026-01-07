@@ -138,9 +138,8 @@
                 <h1 class="text-uppercase mt-4">Healthy</h1>
                 <h1 class="fw-bolder">TASTY FOOD</h1>
                 <p class="text-muted mt-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus ornare, augue eu rutrum commodo, dui diam convallis arcu,
-                    eget consectetur ex sem eget lacus.
+                    {{ $tentang->about_desc_1 }}
+                    {{ $tentang->about_desc_2 }}
                 </p>
                 <a href="#tentang" class="btn btn-dark px-5 py-3 mt-3">
                     TENTANG KAMI
@@ -158,9 +157,7 @@
     <div class="container text-center">
         <h2 class="fw-bold">TENTANG KAMI</h2>
         <p class="text-muted mt-4 mx-auto" style="max-width:700px;">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Phasellus ornare, augue eu rutrum commodo, dui diam convallis arcu,
-            eget consectetur ex sem eget lacus.
+            {{ $tentang->about_desc_1 }}
         </p>
         <hr class="mx-auto mt-4" style="width:60px; border:2px solid #000;">
     </div>
@@ -213,123 +210,95 @@
     </div>
 </section>
 {{-- Berita Kami --}}
+@if($beritaUtama)
 <section class="py-5 bg-light">
     <div class="container">
         <h2 class="fw-bold mb-4 text-center">Berita Kami</h2>
         <div class="row g-4">
-            {{-- BERITA BESAR --}}
+            {{-- ================= BERITA BESAR ================= --}}
             <div class="col-lg-6">
                 <div class="berita-card berita-besar h-100">
-                    <img src="{{ asset('ASET/fathul-abrar-T-qI_MI2EMA-unsplash.jpg') }}" alt="">
+                    <img 
+                        src="{{ asset('storage/'.$beritaUtama->gambar) }}" 
+                        alt="{{ $beritaUtama->judul }}"
+                    >
                     <div class="isi">
                         <h5 class="fw-bold">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                            {{ $beritaUtama->judul }}
                         </h5>
                         <p class="text-muted">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Phasellus ornare augue eu rutrum commodo.
+                            {{ Str::limit(strip_tags($beritaUtama->konten), 120, '...') }}
                         </p>
-                        <a href="#">Baca selengkapnya →</a>
+                        <a href="{{ route('detberita', $beritaUtama->slug) }}">
+                            Baca selengkapnya →
+                        </a>
                     </div>
                 </div>
             </div>
-            {{-- BERITA KECIL --}}
+            {{-- ================= BERITA KECIL ================= --}}
             <div class="col-lg-6">
                 <div class="row g-4">
+                    @foreach($beritaKecil as $item)
                     <div class="col-md-6">
                         <div class="berita-card h-100">
-                            <img src="{{ asset('ASET/sanket-shah-SVA7TyHxojY-unsplash.jpg') }}" alt="">
+                            <img 
+                                src="{{ asset('storage/'.$item->gambar) }}" 
+                                alt="{{ $item->judul }}"
+                            >
                             <div class="isi">
-                                <h6 class="fw-bold mb-1">Lorem Ipsum</h6>
+                                <h6 class="fw-bold mb-1">
+                                    {{ Str::limit($item->judul, 50) }}
+                                </h6>
                                 <p class="text-muted small mb-1">
-                                    Lorem ipsum dolor sit amet consectetur.
+                                    {{ Str::limit(strip_tags($item->konten), 60, '...') }}
                                 </p>
-                                <a href="#">Baca selengkapnya →</a>
+                                <a href="{{ route('detberita', $item->slug) }}">
+                                    Baca selengkapnya →
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="berita-card h-100">
-                            <img src="{{ asset('ASET/sebastian-coman-photography-eBmyH7oO5wY-unsplash.jpg') }}" alt="">
-                            <div class="isi">
-                                <h6 class="fw-bold mb-1">Lorem Ipsum</h6>
-                                <p class="text-muted small mb-1">
-                                    Lorem ipsum dolor sit amet consectetur.
-                                </p>
-                                <a href="#">Baca selengkapnya →</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="berita-card h-100">
-                            <img src="{{ asset('ASET/jimmy-dean-Jvw3pxgeiZw-unsplash.jpg') }}" alt="">
-                            <div class="isi">
-                                <h6 class="fw-bold mb-1">Lorem Ipsum</h6>
-                                <p class="text-muted small mb-1">
-                                    Lorem ipsum dolor sit amet consectetur.
-                                </p>
-                                <a href="#">Baca selengkapnya →</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="berita-card h-100">
-                            <img src="{{ asset('ASET/luisa-brimble-HvXEbkcXjSk-unsplash.jpg') }}" alt="">
-                            <div class="isi">
-                                <h6 class="fw-bold mb-1">Lorem Ipsum</h6>
-                                <p class="text-muted small mb-1">
-                                    Lorem ipsum dolor sit amet consectetur.
-                                </p>
-                                <a href="#">Baca selengkapnya →</a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+
+                    {{-- Kalau berita kecil kurang dari 4 --}}
+                    @if($beritaKecil->isEmpty())
+                        <p class="text-muted">Belum ada berita lainnya.</p>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 </section>
-{{-- Galeri Kami --}}
+@endif
+{{-- GALERI KAMI --}}
 <section class="py-5">
     <div class="container">
         <h2 class="fw-bold mb-4 text-center">Galeri Kami</h2>
-        <div class="row g-3">
-            <div class="col-md-4">
-                <div class="galeri-item h-img">
-                    <img src="{{ asset('ASET/eiliv-aceron-ZuIDLSz3XLg-unsplash.jpg') }}" alt="">
-                </div>
+        @if($galeriHome->count())
+            <div class="row g-3">
+                @foreach($galeriHome as $item)
+                    <div class="col-md-4">
+                        <div class="galeri-item h-img">
+                            <img 
+                                src="{{ asset('storage/'.$item->image) }}" 
+                                alt="{{ $item->caption ?? 'Galeri' }}"
+                            >
+                        </div>
+                    </div>
+                @endforeach
             </div>
-            <div class="col-md-4">
-                <div class="galeri-item h-img">
-                    <img src="{{ asset('ASET/ella-olsson-mmnKI8kMxpc-unsplash.jpg') }}" alt="">
-                </div>
+            <div class="py-4 d-flex justify-content-center">
+                <a href="{{ route('galeri') }}" class="btn btn-dark rounded-1 py-2 px-5">
+                    LIHAT LEBIH BANYAK
+                </a>
             </div>
-            <div class="col-md-4">
-                <div class="galeri-item h-img">
-                    <img src="{{ asset('ASET/brooke-lark-1Rm9GLHV0UA-unsplash.jpg') }}" alt="">
-                </div>
+        @else
+            {{-- EMPTY STATE --}}
+            <div class="text-center text-muted py-5">
+                <p class="mb-2">Galeri belum tersedia</p>
+                <small>Foto kegiatan dan menu akan ditampilkan di sini</small>
             </div>
-        </div>
-        <div class="row g-3 pt-3">
-            <div class="col-md-4">
-                <div class="galeri-item h-img">
-                    <img src="{{ asset('ASET/jonathan-borba-Gkc_xM3VY34-unsplash.jpg') }}" alt="">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="galeri-item h-img">
-                    <img src="{{ asset('ASET/mariana-medvedeva-iNwCO9ycBlc-unsplash.jpg') }}" alt="">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="galeri-item h-img">
-                    <img src="{{ asset('ASET/monika-grabkowska-P1aohbiT-EY-unsplash.jpg') }}" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="py-4 justify-content-center d-flex">
-            <a href="#" class="btn btn-dark rounded-1 py-2 px-5">LIHAT LEBIH BANYAK</a>
-        </div>
+        @endif
     </div>
 </section>
 @endsection

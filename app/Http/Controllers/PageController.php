@@ -15,7 +15,29 @@ class PageController extends Controller
 
     public function home()
     {
-        return view('home');
+        // Berita besar (1 paling terbaru)
+        $beritaUtama = Berita::orderBy('id', 'desc')->first();
+
+        // Berita kecil (4 setelah berita utama)
+        $beritaKecil = Berita::where('id', '!=', optional($beritaUtama)->id)
+            ->orderBy('id', 'desc')
+            ->limit(4)
+            ->get();
+
+        // Galeri home (6 thumbnail)
+        $galeriHome = Galeri::where('section', 'thumbnail')
+            ->limit(6)
+            ->get();
+
+        // Tentang kami
+        $tentang = Tentang::first();
+
+        return view('home', compact(
+            'beritaUtama', 
+            'beritaKecil',
+            'galeriHome',
+            'tentang'
+        ));
     }
 
     /**
@@ -25,10 +47,10 @@ class PageController extends Controller
      */
     public function berita()
     {
-        $beritaTerbaru = Berita::latest()->first();
+        $beritaTerbaru = Berita::orderBy('id', 'desc')->first();
 
-        $beritaLainnya = Berita::latest()
-            ->skip(1)
+        $beritaLainnya = Berita::where('id', '!=', optional($beritaTerbaru)->id)
+            ->orderBy('id', 'desc')
             ->paginate(8);
 
         return view('berita', compact(
@@ -39,14 +61,21 @@ class PageController extends Controller
 
     /**
      * =========================
-     * DETAIL BERITA (USER) - DINAMIS
+     * DETAIL BERITA (USER)
      * =========================
      */
     public function detberita($slug)
     {
+        // Berita utama (detail)
         $berita = Berita::where('slug', $slug)->firstOrFail();
 
-        return view('detber', compact('berita'));
+        // Berita lainnya (kecuali yang sedang dibuka)
+        $beritaLainnya = Berita::where('id', '!=', $berita->id)
+            ->orderBy('id', 'desc')
+            ->limit(4)
+            ->get();
+
+        return view('detber', compact('berita', 'beritaLainnya'));
     }
 
     /**
