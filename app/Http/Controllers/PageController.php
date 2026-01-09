@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Galeri;
 use App\Models\Tentang;
 use App\Models\Berita;
+use App\Models\Menu;
+use App\Models\MenuRate;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -32,11 +34,15 @@ class PageController extends Controller
         // Tentang kami
         $tentang = Tentang::first();
 
+        // Menu view
+        $menu = Menu::take(4)->get();
+
         return view('home', compact(
             'beritaUtama', 
             'beritaKecil',
             'galeriHome',
-            'tentang'
+            'tentang',
+            'menu'
         ));
     }
 
@@ -115,7 +121,17 @@ class PageController extends Controller
         $tentang = Tentang::first();
         return view('tentang', compact('tentang'));
     }
-
+    /**
+     * =========================
+     * MENU (USER)
+     * =========================
+     */
+    public function menu()
+    {
+        $data['allMenu'] = Menu::all();
+        $data['allRate'] = MenuRate::all();
+        return view('menu', $data);
+    }
     /* =========================
      * ADMIN PAGES
      * ========================= */
@@ -151,5 +167,15 @@ class PageController extends Controller
     public function login()
     {
         return view('login.login');
+    }
+    /**
+     * =========================
+     * MENU (ADMIN) - DINAMIS
+     * =========================
+    */
+    public function adminMenu()
+    {
+        $allMenus = Menu::all();
+        return view('admin.menu', compact('allMenus'));
     }
 }

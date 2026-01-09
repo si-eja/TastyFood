@@ -39,6 +39,10 @@ Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store')
  */
 Route::get('/tentang', [PageController::class, 'tentang'])->name('tentang');
 
+/**
+ * MENU
+ */
+Route::get('/menu', [PageController::class, 'menu'])->name('menu');
 
 /*
 |--------------------------------------------------------------------------
@@ -112,6 +116,12 @@ Route::prefix('admin')->group(function () {
 
     Route::post('/tentang', [TentangController::class, 'update'])
         ->name('admin.tentang.update');
+    
+    /**
+     * ADMIN MENU
+     */
+    Route::get('/menu', [PageController::class, 'adminMenu'])
+        ->name('admin.menu');
 });
 
 

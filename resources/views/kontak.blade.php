@@ -1,12 +1,10 @@
 @extends('temppage')
-
 @section('content')
 <section class="backgournd-image">
     <div class="container h-100 d-flex align-items-center justify-content-start">
         <h1 class="text-white fw-bold">Kontak Kami</h1>
     </div>
 </section>
-
 <section class="bg-body">
     <div class="container py-5">
         <h3 class="fw-bold my-4 mb-5">KONTAK KAMI</h3>

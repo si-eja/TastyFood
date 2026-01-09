@@ -79,6 +79,7 @@
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('tentang') }}">Tentang</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('menu') }}">Menu</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('berita') }}">Berita</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('galeri') }}">Galeri</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('kontak') }}">Kontak</a></li>
@@ -102,9 +103,9 @@
                 <div class="col-md-2">
                     <h4 class="fw-bold mb-3">Useful Link</h4>
                     <ul class="list-unstyled">
-                        <li class="mt-3"><a href="#" class="fw-bold text-white text-decoration-none">Blog</a></li>
+                        <li class="mt-3"><a href="{{ route('tentang') }}" class="fw-bold text-white text-decoration-none">Blog</a></li>
                         <li class="mt-3"><a href="#" class="fw-bold text-white text-decoration-none">Hewan</a></li>
-                        <li class="mt-3"><a href="#" class="fw-bold text-white text-decoration-none">Galeri</a></li>
+                        <li class="mt-3"><a href="{{ route('galeri') }}" class="fw-bold text-white text-decoration-none">Galeri</a></li>
                         <li class="mt-3"><a href="#" class="fw-bold text-white text-decoration-none">Testimoni</a></li>
                     </ul>
                 </div>
@@ -112,9 +113,9 @@
                     <h4 class="fw-bold">Privacy</h4>
                     <ul class="list-unstyled">
                         <li class="mt-3"><a href="#" class="fw-bold text-white text-decoration-none">Karir</a></li>
-                        <li class="mt-3"><a href="#" class="fw-bold text-white text-decoration-none">Tentang Kami</a></li>
-                        <li class="mt-3"><a href="#" class="fw-bold text-white text-decoration-none">Kontak Kami</a></li>
-                        <li class="mt-3"><a href="#" class="fw-bold text-white text-decoration-none">Servis</a></li>
+                        <li class="mt-3"><a href="{{ route('tentang') }}" class="fw-bold text-white text-decoration-none">Tentang Kami</a></li>
+                        <li class="mt-3"><a href="{{ route('kontak') }}" class="fw-bold text-white text-decoration-none">Kontak Kami</a></li>
+                        <li class="mt-3"><a href="{{ route('berita') }}" class="fw-bold text-white text-decoration-none">Servis</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">

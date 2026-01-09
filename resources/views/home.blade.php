@@ -166,55 +166,26 @@
 <section class="menu-section">
     <div class="container">
         <div class="row g-4 justify-content-center pt-5">
-            {{-- CARD 1 --}}
+            @foreach($menu as $item)
             <div class="col-md-3">
                 <div class="menu-card">
-                    <img src="{{ asset('ASET/img-1.png') }}" alt="">
-                    <h4 class="fw-bolder mt-5">LOREM IPSUM</h4>
+                    <img src="{{ asset('storage/'.$item->gambar) }}" alt="">
+                    <h4 class="fw-bolder mt-5">{{ $item->nama }}</h4>
                     <p class="text-muted">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        {{ $item->subjudul }}
                     </p>
                 </div>
             </div>
-            {{-- CARD 2 --}}
-            <div class="col-md-3">
-                <div class="menu-card">
-                    <img src="{{ asset('ASET/img-2.png') }}" alt="">
-                    <h4 class="fw-bolder mt-5">LOREM IPSUM</h4>
-                    <p class="text-muted">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </p>
-                </div>
-            </div>
-            {{-- CARD 3 --}}
-            <div class="col-md-3">
-                <div class="menu-card">
-                    <img src="{{ asset('ASET/img-3.png') }}" alt="">
-                    <h4 class="fw-bolder mt-5">LOREM IPSUM</h4>
-                    <p class="text-muted">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </p>
-                </div>
-            </div>
-            {{-- CARD 4 --}}
-            <div class="col-md-3">
-                <div class="menu-card">
-                    <img src="{{ asset('ASET/img-4.png') }}" alt="">
-                    <h4 class="fw-bolder mt-5">LOREM IPSUM</h4>
-                    <p class="text-muted">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    </p>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
 {{-- Berita Kami --}}
-@if($beritaUtama)
 <section class="py-5 bg-light">
     <div class="container">
         <h2 class="fw-bold mb-4 text-center">Berita Kami</h2>
         <div class="row g-4">
+            @if($beritaUtama)
             {{-- ================= BERITA BESAR ================= --}}
             <div class="col-lg-6">
                 <div class="berita-card berita-besar h-100">
@@ -235,6 +206,7 @@
                     </div>
                 </div>
             </div>
+            @endif
             {{-- ================= BERITA KECIL ================= --}}
             <div class="col-lg-6">
                 <div class="row g-4">
@@ -259,17 +231,15 @@
                         </div>
                     </div>
                     @endforeach
-
                     {{-- Kalau berita kecil kurang dari 4 --}}
                     @if($beritaKecil->isEmpty())
-                        <p class="text-muted">Belum ada berita lainnya.</p>
+                        <p class="text-muted text-center">Belum ada berita.</p>
                     @endif
                 </div>
             </div>
         </div>
     </div>
 </section>
-@endif
 {{-- GALERI KAMI --}}
 <section class="py-5">
     <div class="container">

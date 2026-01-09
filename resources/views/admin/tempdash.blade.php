@@ -125,6 +125,10 @@
             class="{{ request()->routeIs('admin.kontak*') ? 'active' : '' }}">
                 <i class="fa-solid fa-envelope"></i> Pesan
             </a>
+            <a href="{{ route('admin.menu') }}"
+            class="{{ request()->routeIs('admin.menu*') ? 'active' : '' }}">
+                <i class="fa-solid fa-bowl-food"></i> Menu
+            </a>
             <div class="logout">
                 <a href="#"
                 class="btn btn-danger text-white w-100 d-flex justify-content-center align-items-center gap-2">
@@ -155,6 +159,10 @@
         <a href="{{ route('admin.kontak') }}"
         class="{{ request()->routeIs('admin.kontak*') ? 'active' : '' }}">
             <i class="fa-solid fa-envelope"></i> Pesan
+        </a>
+        <a href="{{ route('admin.menu') }}"
+        class="{{ request()->routeIs('admin.menu*') ? 'active' : '' }}">
+            <i class="fa-solid fa-bowl-food"></i> Menu
         </a>
         <div class="logout">
             <a href="#"

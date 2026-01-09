@@ -31,7 +31,7 @@
             <div class="col-md-7">
                 <div class="row g-2">
                     {{-- Jumlah data berita --}}
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="rounded bg-light shadow p-3">
                             <div class="d-flex justify-content-between">
                                 <div>
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     {{-- Jumlah data galeri --}}
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="rounded bg-light shadow p-3">
                             <div class="d-flex justify-content-between">
                                 <div>
@@ -54,6 +54,20 @@
                                 <div class="text-end">
                                     <h3 class="fw-bold mb-0">120</h3>
                                     <p class="mt-0">Galeri</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Jumlah data menu --}}
+                    <div class="col-md-4">
+                        <div class="rounded bg-light shadow p-3">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <i class="fa fa-bowl-rice fa-5x text-danger"></i>
+                                </div>
+                                <div class="text-end">
+                                    <h3 class="fw-bold mb-0">40</h3>
+                                    <p class="mt-0">menu</p>
                                 </div>
                             </div>
                         </div>
