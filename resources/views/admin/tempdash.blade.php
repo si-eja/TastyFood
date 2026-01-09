@@ -179,3 +179,25 @@
 </html>
 <script src="{{ asset('aos-master/dist/aos.js') }}"></script>
 <script src="{{ asset('Boostrap/js/bootstrap.bundle.min.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const imageInput = document.getElementById('imageInput');
+    const previewImage = document.getElementById('previewImage');
+    const previewIcon = document.getElementById('previewIcon');
+
+    if (!imageInput) return;
+
+    imageInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            previewImage.src = event.target.result;
+            previewImage.classList.remove('d-none');
+            previewIcon.classList.add('d-none');
+        };
+        reader.readAsDataURL(file);
+    });
+});
+</script>

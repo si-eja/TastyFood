@@ -4,6 +4,8 @@
     .konten-wrapper {
         max-height: 380px;
         overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
 </style>
 <section class="backgournd-image">
