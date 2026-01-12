@@ -127,6 +127,18 @@
     .h-img{
         height: 320px;
     }
+    .konten-wrapper {
+        max-height: 380px;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .menu-wrapper {
+        max-height: 450px;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
 </style>
 {{-- kontent --}}
 <section class="konten-utama" style="background-color: #f0f0f0;">
@@ -182,7 +194,7 @@
                         <div class="modal-body">
                             <div class="row g-2">
                                 <div class="col-md-5">
-                                    <div class="konten-wrapper">
+                                    <div class="menu-wrapper">
                                         <img src="{{ asset('ASET/anh-nguyen-kcA-c3f_3FE-unsplash.jpg') }}"
                                             class="w-100 rounded mb-3 object-fit-cover" alt="" style="max-height: 280px">
                                         <h4 class="fw-bold">Nama Menu</h4>
@@ -195,6 +207,14 @@
                                 </div>
                                 <!-- KANAN : KOMENTAR -->
                                 <div class="col-md-7">
+                                    <h5 class="fw-bold mb-3">Beri komentar</h5>
+                                    <form action="#" method="get" class="mb-3">
+                                        @csrf
+                                        <div class="mb-1">
+                                            <textarea class="form-control" id="note" rows="3" required></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">Kirim Komentar</button>
+                                    </form>
                                     <h5 class="fw-bold mb-3">Komentar</h5>
                                     <div class="konten-wrapper pe-2">
                                         <!-- KOMENTAR ITEM -->
@@ -203,27 +223,18 @@
                                                 <strong>Note:</strong> Makanannya enak dan lezat, pelayanan cepat
                                                 dan ramah. Suasana restoran nyaman untuk bersantai.
                                             </span>
-
                                             <div class="d-flex justify-content-between border-top pt-2 mt-2 text-muted">
-                                                <div>
-                                                    <strong>Menu:</strong> Spaghetti Bolognese
-                                                </div>
                                                 <div>
                                                     <strong>Tanggal:</strong> 2024-06-15
                                                 </div>
                                             </div>
                                         </div>
-
                                         <!-- DUPLIKASI KOMENTAR -->
                                         <div class="rounded shadow-sm my-2 p-3 border">
                                             <span>
                                                 <strong>Note:</strong> Porsi pas, rasa mantap, harga sesuai.
                                             </span>
-
                                             <div class="d-flex justify-content-between border-top pt-2 mt-2 text-muted">
-                                                <div>
-                                                    <strong>Menu:</strong> Spaghetti Bolognese
-                                                </div>
                                                 <div>
                                                     <strong>Tanggal:</strong> 2024-06-12
                                                 </div>
