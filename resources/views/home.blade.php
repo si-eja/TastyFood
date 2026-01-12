@@ -166,17 +166,76 @@
 <section class="menu-section">
     <div class="container">
         <div class="row g-4 justify-content-center pt-5">
-            @foreach($menu as $item)
-            <div class="col-md-3">
-                <div class="menu-card">
-                    <img src="{{ asset('storage/'.$item->gambar) }}" alt="">
-                    <h4 class="fw-bolder mt-5">{{ $item->nama }}</h4>
+            <div class="col-md-3 col-6">
+                <div class="menu-card" data-bs-toggle="modal"
+                     data-bs-target="#menuModal" style="cursor: pointer;">
+                    <img src="{{ asset('ASET/img-1.png') }}" alt="">
+                    <h4 class="fw-bolder mt-5">Lorem Ipsum</h4>
                     <p class="text-muted">
-                        {{ $item->subjudul }}
+                        Makanan bergizi
                     </p>
                 </div>
             </div>
-            @endforeach
+            <div class="modal fade" id="menuModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row g-2">
+                                <div class="col-md-5">
+                                    <div class="konten-wrapper">
+                                        <img src="{{ asset('ASET/anh-nguyen-kcA-c3f_3FE-unsplash.jpg') }}"
+                                            class="w-100 rounded mb-3 object-fit-cover" alt="" style="max-height: 280px">
+                                        <h4 class="fw-bold">Nama Menu</h4>
+                                        <p class="text-muted">Subjudul Menu</p>
+                                        <p>
+                                            Deskripsi lengkap tentang menu ini. Lorem ipsum dolor sit amet,
+                                            consectetur adipiscing elit.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- KANAN : KOMENTAR -->
+                                <div class="col-md-7">
+                                    <h5 class="fw-bold mb-3">Komentar</h5>
+                                    <div class="konten-wrapper pe-2">
+                                        <!-- KOMENTAR ITEM -->
+                                        <div class="rounded shadow-sm my-2 p-3 border">
+                                            <span>
+                                                <strong>Note:</strong> Makanannya enak dan lezat, pelayanan cepat
+                                                dan ramah. Suasana restoran nyaman untuk bersantai.
+                                            </span>
+
+                                            <div class="d-flex justify-content-between border-top pt-2 mt-2 text-muted">
+                                                <div>
+                                                    <strong>Menu:</strong> Spaghetti Bolognese
+                                                </div>
+                                                <div>
+                                                    <strong>Tanggal:</strong> 2024-06-15
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- DUPLIKASI KOMENTAR -->
+                                        <div class="rounded shadow-sm my-2 p-3 border">
+                                            <span>
+                                                <strong>Note:</strong> Porsi pas, rasa mantap, harga sesuai.
+                                            </span>
+
+                                            <div class="d-flex justify-content-between border-top pt-2 mt-2 text-muted">
+                                                <div>
+                                                    <strong>Menu:</strong> Spaghetti Bolognese
+                                                </div>
+                                                <div>
+                                                    <strong>Tanggal:</strong> 2024-06-12
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
