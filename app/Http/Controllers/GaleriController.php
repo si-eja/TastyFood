@@ -18,7 +18,8 @@ class GaleriController extends Controller
         // 1 banner saja
         $banner = Galeri::where('section', 'banner')
             ->where('is_active', true)
-            ->first();
+            ->orderBy('order', 'asc')
+            ->get();
 
         // galeri selain banner
         $galeris = Galeri::whereIn('section', ['slider', 'thumbnail'])
@@ -37,9 +38,9 @@ class GaleriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'section'   => 'required|in:banner,slider,thumbnail',
+            'section'   => 'nullable|in:banner,slider,thumbnail',
             'title'     => 'nullable|string|max:255',
-            'image'     => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image'     => 'required|image|mimes:jpg,jpeg,png,webp',
             'caption'   => 'nullable|string|max:255',
             'order'     => 'nullable|integer',
             'is_active' => 'nullable|boolean',
@@ -69,7 +70,7 @@ class GaleriController extends Controller
         $request->validate([
             'section'   => 'required|in:banner,slider,thumbnail',
             'title'     => 'nullable|string|max:255',
-            'image'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'image'     => 'nullable|image|mimes:jpg,jpeg,png,webp',
             'caption'   => 'nullable|string|max:255',
             'order'     => 'nullable|integer',
             'is_active' => 'nullable|boolean',

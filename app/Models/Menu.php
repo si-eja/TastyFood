@@ -12,6 +12,7 @@ class Menu extends Model
         'subjudul',
         'deskripsi',
         'gambar',
+        'slug',
     ];
 
     public function rates()

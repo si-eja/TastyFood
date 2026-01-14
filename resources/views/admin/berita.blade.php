@@ -25,7 +25,27 @@
 
 <section class="container-fluid bg-light min-vh-100">
     <div class="container py-5">
+        {{-- ================= ALERT ================= --}}
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fa fa-check-circle me-1"></i>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
 
+        @if($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Terjadi kesalahan:</strong>
+                <ul class="mb-0 mt-1">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+        {{-- ================= END ALERT ================= --}}
         {{-- HEADER --}}
         <div class="d-flex flex-wrap gap-2 mb-4 align-items-center">
             {{-- SEARCH --}}

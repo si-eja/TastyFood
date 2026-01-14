@@ -35,14 +35,16 @@ class PageController extends Controller
         $tentang = Tentang::first();
 
         // Menu view
-        $menu = Menu::take(4)->get();
+        $menus = Menu::with(['rates' => function ($q) {
+            $q->latest();
+        }])->latest()->take(4)->get();
 
         return view('home', compact(
             'beritaUtama', 
             'beritaKecil',
             'galeriHome',
             'tentang',
-            'menu'
+            'menus'
         ));
     }
 
@@ -128,9 +130,13 @@ class PageController extends Controller
      */
     public function menu()
     {
-        $data['allMenu'] = Menu::all();
-        $data['allRate'] = MenuRate::all();
-        return view('menu', $data);
+        $allMenu = Menu::with(['rates' => function ($q) {
+            $q->latest();
+        }])->latest()->get();
+
+        $allRate = MenuRate::with('menu')->latest()->get();
+
+        return view('menu', compact('allMenu', 'allRate'));
     }
     /* =========================
      * ADMIN PAGES
@@ -173,9 +179,14 @@ class PageController extends Controller
      * MENU (ADMIN) - DINAMIS
      * =========================
     */
-    public function adminMenu()
+    public function adminMenu(Request $request)
     {
-        $allMenus = Menu::all();
-        return view('admin.menu', compact('allMenus'));
+        $menus = Menu::withCount('rates')
+            ->when($request->search, function ($q) use ($request) {
+                $q->where('nama_menu', 'like', "%{$request->search}%");
+            })
+            ->latest()
+            ->get();
+        return view('admin.menu', compact('menus'));
     }
 }

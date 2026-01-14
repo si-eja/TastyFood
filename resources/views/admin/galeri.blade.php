@@ -1,6 +1,5 @@
 @extends('admin.tempdash')
 @section('content')
-
 <style>
     .thumb-wrapper{width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:12px}
     .thumb-img{width:100%;height:100%;object-fit:cover;transition:.3s}
@@ -17,93 +16,101 @@
 
 <section class="container-fluid bg-light">
 <div class="container py-5">
-
+{{-- ALERT SUCCESS --}}
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fa fa-check-circle me-1"></i>
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
+{{-- ALERT ERROR VALIDATION --}}
+@if($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Terjadi kesalahan:</strong>
+        <ul class="mb-0 mt-1">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
 {{-- ================= BANNER ================= --}}
 <div class="rounded shadow p-2 mb-3">
     <h5 class="fw-bold">Banner Galeri</h5>
     <hr>
-
     <div class="row g-3">
-
         {{-- BANNER EXIST --}}
-        @if($banner)
-        <div class="col-md-6">
-            <div class="banner-wrapper">
-                <img src="{{ asset('storage/'.$banner->image) }}" class="banner-img">
-
-                <div class="banner-overlay">
-                    <button class="btn btn-light btn-sm me-2"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalEditBanner{{ $banner->id }}">
-                        <i class="fa fa-pen"></i>
-                    </button>
-
-                    <button class="btn btn-danger btn-sm"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalHapusBanner{{ $banner->id }}">
-                        <i class="fa fa-trash"></i>
-                    </button>
+        @if($banner->count())
+            @foreach($banner as $item)
+                <div class="col-md-6">
+                    <div class="banner-wrapper">
+                        <img src="{{ asset('storage/'.$item->image) }}" class="banner-img">
+                        <div class="banner-overlay">
+                            <button class="btn btn-light btn-sm me-2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalEditBanner{{ $item->id }}">
+                                <i class="fa fa-pen"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalHapusBanner{{ $item->id }}">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+                {{-- EDIT BANNER --}}
+                <div class="modal fade" id="modalEditBanner{{ $item->id }}">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form action="{{ route('galeri.update',$item->id) }}" method="POST" enctype="multipart/form-data">
+                                @csrf @method('PUT')
+                                <input type="hidden" name="section" value="banner">
+                                <div class="modal-header">
+                                    <h5>Edit Banner</h5>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <img src="{{ asset('storage/'.$item->image) }}"
+                                        class="img-fluid mb-3"
+                                        style="max-height:220px">
 
-        {{-- EDIT BANNER --}}
-        <div class="modal fade" id="modalEditBanner{{ $banner->id }}">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <form action="{{ route('galeri.update',$banner->id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf @method('PUT')
-                        <input type="hidden" name="section" value="banner">
-
-                        <div class="modal-header">
-                            <h5>Edit Banner</h5>
+                                    <input type="file" name="image" class="form-control mb-2">
+                                    <input type="text" name="title"
+                                        class="form-control"
+                                        value="{{ $item->title }}">
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <button class="btn btn-primary">Simpan</button>
+                                </div>
+                            </form>
                         </div>
-
-                        <div class="modal-body text-center">
-                            <img src="{{ asset('storage/'.$banner->image) }}"
-                                 class="img-fluid mb-3"
-                                 style="max-height:220px">
-
-                            <input type="file" name="image" class="form-control mb-2">
-                            <input type="text" name="title"
-                                   class="form-control"
-                                   value="{{ $banner->title }}">
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button class="btn btn-primary">Simpan</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        {{-- HAPUS BANNER --}}
-        <div class="modal fade" id="modalHapusBanner{{ $banner->id }}">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <form action="{{ route('galeri.destroy',$banner->id) }}" method="POST">
-                        @csrf @method('DELETE')
-
-                        <div class="modal-header">
-                            <h5 class="text-danger">Hapus Banner</h5>
+                {{-- HAPUS BANNER --}}
+                <div class="modal fade" id="modalHapusBanner{{ $item->id }}">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <form action="{{ route('galeri.destroy',$item->id) }}" method="POST">
+                                @csrf @method('DELETE')
+                                <div class="modal-header">
+                                    <h5 class="text-danger">Hapus Banner</h5>
+                                </div>
+                                <div class="modal-body">
+                                    Yakin hapus banner?
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <button class="btn btn-danger">Hapus</button>
+                                </div>
+                            </form>
                         </div>
-
-                        <div class="modal-body">
-                            Yakin hapus banner?
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button class="btn btn-danger">Hapus</button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
+            @endforeach
         @endif
-
         {{-- TAMBAH BANNER --}}
         <div class="col-md-6">
             <div class="banner-wrapper d-flex align-items-center justify-content-center border">
@@ -121,18 +128,12 @@
                     <form action="{{ route('galeri.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="section" value="banner">
-
                         <div class="modal-header">
                             <h5>Tambah Banner</h5>
                         </div>
-
                         <div class="modal-body">
                             <input type="file" name="image" class="form-control mb-2" required>
-                            <input type="text" name="title"
-                                   class="form-control"
-                                   placeholder="Judul Halaman">
                         </div>
-
                         <div class="modal-footer">
                             <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                             <button class="btn btn-primary">Simpan</button>

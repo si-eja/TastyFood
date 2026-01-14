@@ -178,66 +178,59 @@
 <section class="menu-section">
     <div class="container">
         <div class="row g-4 justify-content-center pt-5">
-            <div class="col-md-3 col-6">
-                <div class="menu-card" data-bs-toggle="modal"
-                     data-bs-target="#menuModal" style="cursor: pointer;">
-                    <img src="{{ asset('ASET/img-1.png') }}" alt="">
-                    <h4 class="fw-bolder mt-5">Lorem Ipsum</h4>
-                    <p class="text-muted">
-                        Makanan bergizi
-                    </p>
+            @foreach ($menus as $menu)
+                <div class="col-md-3 col-6">
+                    <div class="menu-card"
+                        data-bs-toggle="modal"
+                        data-bs-target="#menuModal{{ $menu->id }}"
+                        style="cursor:pointer">
+
+                        <img src="{{ asset('storage/'.$menu->gambar) }}">
+                        <h4 class="fw-bolder mt-3">{{ $menu->nama_menu }}</h4>
+                        <p class="text-muted">{{ $menu->subjudul }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="modal fade" id="menuModal" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <div class="row g-2">
-                                <div class="col-md-5">
-                                    <div class="menu-wrapper">
-                                        <img src="{{ asset('ASET/anh-nguyen-kcA-c3f_3FE-unsplash.jpg') }}"
-                                            class="w-100 rounded mb-3 object-fit-cover" alt="" style="max-height: 280px">
-                                        <h4 class="fw-bold">Nama Menu</h4>
-                                        <p class="text-muted">Subjudul Menu</p>
-                                        <p>
-                                            Deskripsi lengkap tentang menu ini. Lorem ipsum dolor sit amet,
-                                            consectetur adipiscing elit.
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- KANAN : KOMENTAR -->
-                                <div class="col-md-7">
-                                    <h5 class="fw-bold mb-3">Beri komentar</h5>
-                                    <form action="#" method="get" class="mb-3">
-                                        @csrf
-                                        <div class="mb-1">
-                                            <textarea class="form-control" id="note" rows="3" required></textarea>
+
+                {{-- MODAL --}}
+                <div class="modal fade" id="menuModal{{ $menu->id }}">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row g-2">
+                                    <div class="row g-2">
+                                    {{-- KIRI --}}
+                                        <div class="col-md-5">
+                                            <img src="{{ asset('storage/'.$menu->gambar) }}"
+                                                class="w-100 rounded mb-3"
+                                                style="max-height:280px;object-fit:cover">
+
+                                            <h4 class="fw-bold">{{ $menu->nama_menu }}</h4>
+                                            <p class="text-muted">{{ $menu->subjudul }}</p>
+                                            <p>{{ $menu->deskripsi }}</p>
                                         </div>
-                                        <button type="submit" class="btn btn-primary w-100">Kirim Komentar</button>
-                                    </form>
-                                    <h5 class="fw-bold mb-3">Komentar</h5>
-                                    <div class="konten-wrapper pe-2">
-                                        <!-- KOMENTAR ITEM -->
-                                        <div class="rounded shadow-sm my-2 p-3 border">
-                                            <span>
-                                                <strong>Note:</strong> Makanannya enak dan lezat, pelayanan cepat
-                                                dan ramah. Suasana restoran nyaman untuk bersantai.
-                                            </span>
-                                            <div class="d-flex justify-content-between border-top pt-2 mt-2 text-muted">
-                                                <div>
-                                                    <strong>Tanggal:</strong> 2024-06-15
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- DUPLIKASI KOMENTAR -->
-                                        <div class="rounded shadow-sm my-2 p-3 border">
-                                            <span>
-                                                <strong>Note:</strong> Porsi pas, rasa mantap, harga sesuai.
-                                            </span>
-                                            <div class="d-flex justify-content-between border-top pt-2 mt-2 text-muted">
-                                                <div>
-                                                    <strong>Tanggal:</strong> 2024-06-12
-                                                </div>
+
+                                        {{-- KANAN --}}
+                                        <div class="col-md-7">
+                                            <h5 class="fw-bold mb-2">Beri komentar</h5>
+
+                                            <form action="{{ route('menu.rate.store', $menu->id) }}" method="POST">
+                                                @csrf
+                                                <textarea name="komentar" class="form-control" rows="3" required></textarea>
+                                                <button class="btn btn-primary w-100 mt-2">Kirim</button>
+                                            </form>
+
+                                            <h5 class="fw-bold mt-4">Komentar</h5>
+                                            <div class="konten-wrapper pe-2">
+                                                @forelse ($menu->rates as $rate)
+                                                    <div class="rounded shadow-sm my-2 p-3 border">
+                                                        <strong>Note:</strong> {{ $rate->komentar }}
+                                                        <div class="border-top pt-2 mt-2 text-muted text-end">
+                                                            {{ $rate->created_at->format('d M Y') }}
+                                                        </div>
+                                                    </div>
+                                                @empty
+                                                    <p class="text-muted text-center">Belum ada komentar</p>
+                                                @endforelse
                                             </div>
                                         </div>
                                     </div>
@@ -246,7 +239,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>

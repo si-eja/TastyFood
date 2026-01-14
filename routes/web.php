@@ -6,6 +6,7 @@ use App\Http\Controllers\KontakController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +44,7 @@ Route::get('/tentang', [PageController::class, 'tentang'])->name('tentang');
  * MENU
  */
 Route::get('/menu', [PageController::class, 'menu'])->name('menu');
+Route::post('/menu/{menu}/komentar', [MenuController::class, 'storeRate'])->name('menu.rate.store');
 
 /*
 |--------------------------------------------------------------------------
@@ -122,6 +124,15 @@ Route::prefix('admin')->group(function () {
      */
     Route::get('/menu', [PageController::class, 'adminMenu'])
         ->name('admin.menu');
+
+    Route::post('/menu/store', [MenuController::class, 'store'])
+        ->name('admin.menu.store');
+
+    Route::put('/menu/{menu}', [MenuController::class, 'update'])
+        ->name('admin.menu.update');
+
+    Route::delete('/menu/{menu}', [MenuController::class, 'destroy'])
+        ->name('admin.menu.destroy');
 });
 
 
