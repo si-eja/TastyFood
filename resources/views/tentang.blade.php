@@ -18,12 +18,12 @@
             {{-- IMAGE (STATIC) --}}
             <div class="col-md-6 row g-2">
                 <div class="col-md-6">
-                    <img src="{{ asset('ASET/eiliv-aceron-ZuIDLSz3XLg-unsplash.jpg') }}"
+                    <img src="{{ asset('storage/tentang/'.$tentang->about_image_1) }}"
                         class="object-fit-cover rounded-4"
                         style="width:100%; height:100%; max-height:390px;">
                 </div>
                 <div class="col-md-6">
-                    <img src="{{ asset('ASET/brooke-lark-1Rm9GLHV0UA-unsplash.jpg') }}"
+                    <img src="{{ asset('storage/tentang/'.$tentang->about_image_2) }}"
                         class="object-fit-cover rounded-4"
                         style="width:100%; height:100%; max-height:390px;">
                 </div>
@@ -58,12 +58,12 @@
             {{-- IMAGE (STATIC) --}}
             <div class="col-md-6 row g-2">
                 <div class="col-md-6">
-                    <img src="{{ asset('ASET/eiliv-aceron-ZuIDLSz3XLg-unsplash.jpg') }}"
+                    <img src="{{ asset('storage/tentang/'.$tentang->visi_image_1) }}"
                         class="object-fit-cover rounded-4"
                         style="width:100%; height:100%; max-height:320px;">
                 </div>
                 <div class="col-md-6">
-                    <img src="{{ asset('ASET/brooke-lark-1Rm9GLHV0UA-unsplash.jpg') }}"
+                    <img src="{{ asset('storage/tentang/'.$tentang->visi_image_2) }}"
                         class="object-fit-cover rounded-4"
                         style="width:100%; height:100%; max-height:320px;">
                 </div>
@@ -91,7 +91,7 @@
 
             {{-- IMAGE (STATIC) --}}
             <div class="col-md-6">
-                <img src="{{ asset('ASET/eiliv-aceron-ZuIDLSz3XLg-unsplash.jpg') }}"
+                <img src="{{ asset('storage/tentang/'.$tentang->misi_image) }}"
                     class="object-fit-cover rounded-4"
                     style="width:100%; height:100%; max-height:320px;">
             </div>

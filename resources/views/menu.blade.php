@@ -45,7 +45,7 @@
                             <div class="modal-body">
                                 <div class="row g-2">
                                     {{-- KIRI --}}
-                                    <div class="col-md-5">
+                                    <div class="col-md-5" style="max-height: 480px; overflow-y: auto;">
                                         <img src="{{ asset('storage/'.$menu->gambar) }}"
                                             class="w-100 rounded mb-3"
                                             style="max-height:280px;object-fit:cover">

@@ -329,7 +329,6 @@
             {{-- EMPTY STATE --}}
             <div class="text-center text-muted py-5">
                 <p class="mb-2">Galeri belum tersedia</p>
-                <small>Foto kegiatan dan menu akan ditampilkan di sini</small>
             </div>
         @endif
     </div>

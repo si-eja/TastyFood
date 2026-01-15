@@ -108,16 +108,16 @@
                     <div class="modal-content">
                         <div class="modal-body">
                             <div class="row g-2">
-                                <div class="col-md-5">
+                                <div class="col-md-5" style="max-height: 480px; overflow-y: auto;">
                                     <img src="{{ asset('storage/'.$menu->gambar) }}"
                                         class="w-100 rounded mb-2"
-                                        style="max-height:280px;object-fit:cover">
+                                        style="max-height:280px; object-fit:cover">
                                     <h4 class="fw-bold">{{ $menu->nama_menu }}</h4>
                                     <p class="text-muted">{{ $menu->subjudul }}</p>
                                     <p>{{ $menu->deskripsi }}</p>
                                 </div>
 
-                                <div class="col-md-7">
+                                <div class="col-md-7" style="max-height: 480px; overflow-y: auto;">
                                     <h5 class="fw-bold mb-3">Komentar</h5>
                                     <div class="konten-wrapper pe-2">
                                         @forelse ($menu->rates as $rate)
