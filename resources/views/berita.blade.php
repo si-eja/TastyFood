@@ -56,34 +56,34 @@
 {{-- ================= BERITA LAINNYA ================= --}}
 <section class="bg-body container py-5">
     <h3 class="fw-bold mb-4">Berita Lainnya</h3>
-
     <div class="row g-3">
-        @if($beritaLainnya->count())
-        <div class="col-md-3">
-            <div class="berita-card h-100">
-                <img src="{{ asset('storage/'.$item->gambar) }}" alt="">
-                <div class="isi">
-                    <h6 class="fw-bold mb-1">
-                        {{ $item->judul }}
-                    </h6>
-                    <p class="text-muted small mb-1">
-                        {{ Str::words(strip_tags($item->konten), 7, '...') }}
-                    </p>
+        @forelse($beritaLainnya as $item)
+            <div class="col-md-3">
+                <div class="berita-card h-100">
+                    <img 
+                        src="{{ asset('storage/'.$item->gambar) }}"
+                        class="object-fit-cover"
+                        style="width:100%; height:200px;"
+                    >
 
-                    {{-- 🔥 FIX DI SINI --}}
-                    <a href="{{ route('detberita', $item->slug) }}">
-                        Baca selengkapnya →
-                    </a>
+                    <div class="isi p-3">
+                        <h6 class="fw-bold mb-1">
+                            {{ $item->judul }}
+                        </h6>
+
+                        <p class="text-muted small mb-1">
+                            {{ Str::words(strip_tags($item->konten), 7, '...') }}
+                        </p>
+
+                        <a href="{{ route('detberita', $item->slug) }}">
+                            Baca selengkapnya →
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        @endif
-    </div>
-
-    {{-- PAGINATION --}}
-    <div class="mt-4">
-        {{ $beritaLainnya->links() }}
+        @empty
+            <p class="text-muted">Belum ada berita lainnya.</p>
+        @endforelse
     </div>
 </section>
-
 @endsection
