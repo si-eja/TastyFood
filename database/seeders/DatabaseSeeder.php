@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Lokasi;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Tentang;
@@ -14,9 +15,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User default
-        User::factory()->create([
+        User::create([
             'name'  => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'emailadmin@gmail.com',
+            'password' => bcrypt('12345'),
+            'nomor_hp' => '081234567890'
         ]);
 
         // Tentang Kami default
@@ -41,5 +44,11 @@ class DatabaseSeeder extends Seeder
                 'misi_desc_2'  => 'Mengutamakan kepuasan pelanggan dan pelayanan terbaik.',
             ]
         );
+
+        // Lokasi default
+        Lokasi::create([
+            'nama_lokasi' => 'Cimindi, Bandung',
+            'map_embed' => 'https://www.google.com/maps?q=Cimahi,+Jawa+Barat&output=embed'
+        ]);
     }
 }

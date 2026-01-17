@@ -169,9 +169,9 @@
                 <div class="col-md-3">
                     <h4 class="fw-bold">Contact Info</h4>
                     <ul class="list-unstyled">
-                        <li class="mt-3 d-flex"><img src="{{ asset('ASET/ic_markunread_24px.png') }}" alt="" style="width: 16px; height: 16px; margin-right: 10px;"><p>tastyfood@gmail.com</p></li>
-                        <li class="mt-3 d-flex"><img src="{{ asset('ASET/ic_call_24px.png') }}" alt="" style="width: 16px; height: 16px; margin-right: 10px;"><p>+62 812 3456 7890</p></li>
-                        <li class="mt-3 d-flex"><img src="{{ asset('ASET/ic_place_24px.png') }}" alt="" style="width: 16px; height: 16px; margin-right: 10px;"><p>Bandung, Jawa Barat</p></li>
+                        <li class="mt-3 d-flex"><img src="{{ asset('ASET/ic_markunread_24px.png') }}" alt="" style="width: 16px; height: 16px; margin-right: 10px;"><p>{{ $userGlobal->email ?? '-' }}</p></li>
+                        <li class="mt-3 d-flex"><img src="{{ asset('ASET/ic_call_24px.png') }}" alt="" style="width: 16px; height: 16px; margin-right: 10px;"><p>{{ $userGlobal->nomor_hp ?? '-' }}</p></li>
+                        <li class="mt-3 d-flex"><img src="{{ asset('ASET/ic_place_24px.png') }}" alt="" style="width: 16px; height: 16px; margin-right: 10px;"><p>{{ $locationGlobal->nama_lokasi ?? '-' }}</p></li>
                     </ul>
                 </div>
             </div>

@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Galeri;
 use App\Models\Tentang;
 use App\Models\Berita;
+use App\Models\Kontak;
+use App\Models\Lokasi;
 use App\Models\Menu;
 use App\Models\MenuRate;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -108,11 +111,6 @@ class PageController extends Controller
         return view('galeri', compact('sliders', 'thumbnails'));
     }
 
-    public function kontak()
-    {
-        return view('kontak');
-    }
-
     /**
      * =========================
      * TENTANG KAMI (USER)
@@ -138,13 +136,42 @@ class PageController extends Controller
 
         return view('menu', compact('allMenu', 'allRate'));
     }
+    /**
+     *========================= 
+     * LOKASI (USER)
+     * ========================
+     */
+
+    /**
+     *========================= 
+     * TEMPLATE (USER)
+     *=========================
+     */
+    public static function get()
+    {
+        return [
+            'userGlobal' => User::select('email', 'nomor_hp')->first(),
+            'locationGlobal' => Lokasi::select('nama_lokasi', 'map_embed')->first()
+        ];
+    }
+
+    public function public()
+    {
+        $data['lokasi'] = Lokasi::first();
+        return view('kontak', $data);
+    }
     /* =========================
      * ADMIN PAGES
      * ========================= */
 
     public function admin()
     {
-        return view('admin.dashadm');
+        $data['totalBerita'] = Berita::count();
+        $data['totalMenu']   = Menu::count();
+        $data['totalGaleri'] = Galeri::where('section', 'thumbnail')->count();
+        $data['location'] = Lokasi::first();
+        $data['user'] = User::first();
+        return view('admin.dashadm', $data);
     }
 
     /**
@@ -188,5 +215,15 @@ class PageController extends Controller
             ->latest()
             ->get();
         return view('admin.menu', compact('menus'));
+    }
+    /**
+     * =========================
+     * LOKASI (ADMIN)
+     * =========================
+     */
+    public function edit()
+    {
+        $location = Lokasi::first();
+        return view('admin.dashadm', compact('location'));
     }
 }

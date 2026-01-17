@@ -67,13 +67,23 @@
             <div class="col-md-4 mb-4">
                 <img src="{{ asset('ASET/Group 68.png') }}" style="height:60px;width:60px" class="mb-3">
                 <p class="fw-bold mb-1">LOCATION</p>
-                <p class="mb-0">Kota Bandung, Jawa Barat</p>
+                <p class="mb-0">{{ $lokasi->nama_lokasi }}</p>
             </div>
         </div>
     </div>
 </section>
 
 <section class="bg-costume">
-    <div class="container py-5"></div>
+    <div class="container py-5">
+        <div style="width:100%; height:450px">
+            <iframe
+                src="{{ $lokasi->map_embed }}"
+                width="100%"
+                height="100%"
+                style="border:0"
+                loading="lazy">
+            </iframe>
+        </div>
+    </div>
 </section>
 @endsection

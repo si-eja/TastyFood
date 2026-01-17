@@ -274,7 +274,7 @@
             <div class="col-lg-6">
                 <div class="row g-4">
                     @foreach($beritaKecil as $item)
-                    <div class="col-md-6">
+                    <div class="col-md-6 col-6">
                         <div class="berita-card h-100">
                             <img 
                                 src="{{ asset('storage/'.$item->gambar) }}" 

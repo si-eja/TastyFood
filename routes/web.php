@@ -6,6 +6,7 @@ use App\Http\Controllers\KontakController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +33,7 @@ Route::get('/galeri', [PageController::class, 'galeri'])->name('galeri');
 /**
  * KONTAK
  */
-Route::get('/kontak', [PageController::class, 'kontak'])->name('kontak');
+Route::get('/kontak', [PageController::class, 'public'])->name('kontak');
 Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store');
 
 /**
@@ -45,6 +46,10 @@ Route::get('/tentang', [PageController::class, 'tentang'])->name('tentang');
  */
 Route::get('/menu', [PageController::class, 'menu'])->name('menu');
 Route::post('/menu/{menu}/komentar', [MenuController::class, 'storeRate'])->name('menu.rate.store');
+/**
+ *LOKASI 
+ */
+Route::get('/lokasi', [PageController::class, 'public'])->name('public.location');
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +62,8 @@ Route::prefix('admin')->group(function () {
      * DASHBOARD
      */
     Route::get('/', [PageController::class, 'admin'])->name('admin');
+    Route::post('/admin/user/update', [AdminController::class, 'update'])
+    ->name('admin.user.update');
 
     /**
      * ADMIN BERITA (CRUD)
@@ -133,13 +140,19 @@ Route::prefix('admin')->group(function () {
 
     Route::delete('/menu/{menu}', [MenuController::class, 'destroy'])
         ->name('admin.menu.destroy');
+    /**
+     * ADMIN LOKASI
+     */
+    Route::get('/lokasi', [PageController::class, 'edit'])
+        ->name('admin.location.edit');
+
+    Route::post('/lokasi/store', [LokasiController::class, 'update'])
+        ->name('admin.location.update');
 });
 
 
 /*
-|--------------------------------------------------------------------------
-| LOGIN
-|--------------------------------------------------------------------------
+| LOGIN PAGE
 */
 Route::get('/login', [PageController::class, 'login'])
     ->name('login');
