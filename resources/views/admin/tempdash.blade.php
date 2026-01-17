@@ -129,8 +129,8 @@
             class="{{ request()->routeIs('admin.menu*') ? 'active' : '' }}">
                 <i class="fa-solid fa-bowl-food"></i> Menu
             </a>
-            <div class="logout">
-                <a href="#"
+            <div class="logout d-flex flex-column">
+                <a href="{{ route('logout.authenticate') }}"
                 class="btn btn-danger text-white w-100 d-flex justify-content-center align-items-center gap-2">
                     <i class="fa-solid fa-right-from-bracket"></i> Logout
                 </a>
@@ -164,8 +164,15 @@
         class="{{ request()->routeIs('admin.menu*') ? 'active' : '' }}">
             <i class="fa-solid fa-bowl-food"></i> Menu
         </a>
-        <div class="logout">
-            <a href="#"
+        <div class="logout d-flex flex-column">
+            <div class="d-flex justify-content-start align-items-center mb-3">
+                <i class="fa-regular fa-circle-user fs-1"></i>
+                <div class="px-2 pt-3 align-items-center">
+                    <span class="fw-bold">{{ $adminGlobal->name }}</span>
+                    <p class="text-muted">{{ $adminGlobal->email }}</p>
+                </div>
+            </div>
+            <a href="{{ route('logout.authenticate') }}"
             class="btn btn-danger w-100 text-white d-flex justify-content-center align-items-center gap-2">
                 <i class="fa-solid fa-right-from-bracket"></i> Logout
             </a>

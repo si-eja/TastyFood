@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kontak;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -62,7 +64,7 @@ class AdminController extends Controller
             'nomor_hp' => 'required'
         ]);
 
-        $user = User::findOrFail(1); // 1 user seeded
+        $user = Service::findOrFail(1); // 1 user seeded
 
         // Normalisasi nomor HP ke +62
         $nomor = preg_replace('/[^0-9]/', '', $request->nomor_hp);
@@ -79,5 +81,37 @@ class AdminController extends Controller
         ]);
 
         return back()->with('success', 'Data berhasil diperbarui');
+    }
+
+    // LOGIN
+    public function login(Request $request)
+    {
+        $request->validate([
+            'login' => 'required',
+            'password' => 'required',
+        ]);
+
+        $login = $request->login;
+
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL)
+            ? 'email'
+            : 'nomor_hp';
+
+        if (Auth::guard('admin')->attempt([
+            $field => $login,
+            'password' => $request->password,
+        ])) {
+
+            $request->session()->regenerate();
+            return redirect()->route('admin');
+        }
+
+        return back()->withErrors([
+            'login' => 'Email / Nomor HP atau password salah',
+        ]);
+    }
+    public function logout(){
+        Auth::logout();
+        return redirect('login');
     }
 }

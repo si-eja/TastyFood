@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use App\Http\Controllers\PageController;
+use App\Models\Admin;
 use App\Models\Lokasi;
-use App\Models\User;
+use App\Models\Service;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -25,11 +26,12 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         View::composer(
-        ['template', 'temppage'],
+        ['template', 'temppage', 'admin.tempdash'],
             function ($view) {
                 $view->with([
-                    'userGlobal' => User::select('email', 'nomor_hp')->first(),
-                    'locationGlobal' => Lokasi::select('nama_lokasi')->first()
+                    'userGlobal' => Service::select('email', 'nomor_hp')->first(),
+                    'locationGlobal' => Lokasi::select('nama_lokasi')->first(),
+                    'adminGlobal' => Admin::select('name', 'email')->first()
                 ]);
             }
         );

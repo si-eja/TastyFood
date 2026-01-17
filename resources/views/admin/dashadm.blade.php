@@ -265,7 +265,7 @@
         <div class="modal fade" id="editUserModal" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <form id="updateForm" method="POST" action="{{ route('admin.user.update') }}">
+                    <form id="updateForm" method="POST" action="{{ route('admin.service.update') }}">
                         @csrf
                         <div class="modal-header">
                             <h5 class="modal-title">Ubah Data User</h5>

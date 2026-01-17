@@ -78,20 +78,40 @@
         <div class="login-form rounded-end-3">
             <div class="w-100">
                 <h3 class="fw-bold mb-4">Admin Login</h3>
-                {{-- EMAIL --}}
-                <div class="mb-3">
-                    <label class="form-label">Username</label>
-                    <input type="text" class="form-control bg-dark text-white border-0">
-                </div>
-                {{-- PASSWORD --}}
-                <div class="mb-4">
-                    <label class="form-label">Password</label>
-                    <input type="password" class="form-control bg-dark text-white border-0">
-                </div>
-                {{-- BUTTON --}}
-                <button class="btn btn-light w-100 fw-semibold">
-                    Login
-                </button>
+                <form action="{{ route('login.authenticate') }}" method="POST">
+                    @csrf
+                    {{-- USERNAME --}}
+                    <div class="mb-3">
+                        <label class="form-label">Email / Nomor HP</label>
+                        <input
+                            type="text"
+                            name="login"
+                            value="{{ old('login') }}"
+                            class="form-control bg-dark text-white border-0 @error('login') is-invalid @enderror"
+                            placeholder="Masukkan email atau nomor HP"
+                        >
+                        @error('login')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    {{-- PASSWORD --}}
+                    <div class="mb-4">
+                        <label class="form-label">Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control bg-dark text-white border-0 @error('password') is-invalid @enderror"
+                            placeholder="Masukkan password"
+                        >
+                        @error('password')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    {{-- BUTTON --}}
+                    <button type="submit" class="btn btn-light w-100 fw-semibold">
+                        Login
+                    </button>
+                </form>
             </div>
         </div>
     </div>

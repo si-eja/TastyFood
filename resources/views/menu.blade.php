@@ -92,7 +92,7 @@
 </section>
 <section class="bg-body">
     <div class="container py-5">
-        <h3 class="fw-bold mb-4 text-end">Daftar Rating Menu</h3>
+        <h3 class="fw-bold mb-4 text-end">Komentar Menu</h3>
 
         @forelse ($allRate as $rate)
             <div class="rounded shadow my-2 p-2 border">
@@ -105,7 +105,7 @@
                 </div>
             </div>
         @empty
-            <p class="text-center text-muted">Belum ada rating</p>
+            <p class="text-center text-muted">Belum ada komentar</p>
         @endforelse
     </div>
 </section>

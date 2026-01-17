@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use App\Models\Lokasi;
+use App\Models\Service;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Tentang;
@@ -15,13 +17,16 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User default
-        User::create([
-            'name'  => 'Test User',
-            'email' => 'emailadmin@gmail.com',
-            'password' => bcrypt('12345'),
-            'nomor_hp' => '081234567890'
+        Service::create([
+            'email' => 'tasty@gmail.com',
+            'nomor_hp' => '081234567890',
         ]);
-
+        Admin::create([
+            'name' => 'Super Admin',
+            'email' => 'admin@gmail.com',
+            'nomor_hp' => '081234567890',
+            'password' => bcrypt('admin123'),
+        ]);
         // Tentang Kami default
         Tentang::updateOrCreate(
             ['id' => 1],

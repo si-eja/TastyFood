@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Galeri;
 use App\Models\Tentang;
 use App\Models\Berita;
@@ -9,6 +10,7 @@ use App\Models\Kontak;
 use App\Models\Lokasi;
 use App\Models\Menu;
 use App\Models\MenuRate;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -155,8 +157,9 @@ class PageController extends Controller
     public static function get()
     {
         return [
-            'userGlobal' => User::select('email', 'nomor_hp')->first(),
-            'locationGlobal' => Lokasi::select('nama_lokasi', 'map_embed')->first()
+            'userGlobal' => Service::select('email', 'nomor_hp')->first(),
+            'locationGlobal' => Lokasi::select('nama_lokasi', 'map_embed')->first(),
+            'adminGlobal' => Admin::select('name', 'email')->first()
         ];
     }
 
@@ -170,7 +173,7 @@ class PageController extends Controller
         $data['totalMenu']   = Menu::count();
         $data['totalGaleri'] = Galeri::where('section', 'thumbnail')->count();
         $data['location'] = Lokasi::first();
-        $data['user'] = User::first();
+        $data['user'] = Service::first();
         $query = Kontak::query();
         $data['kontak'] = $query->orderBy('is_read')
                          ->latest()

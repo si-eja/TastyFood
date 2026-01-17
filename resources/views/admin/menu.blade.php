@@ -24,14 +24,12 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
         @endif
-
         @if(session('error'))
         <div class="alert alert-danger alert-dismissible fade show">
             {{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
         @endif
-
         @if($errors->any())
         <div class="alert alert-danger">
             <ul class="mb-0">
@@ -61,13 +59,11 @@
         @forelse ($menus as $menu)
             <div class="col-lg-3 col-md-4 col-6">
                 <div class="h-100 shadow-sm rounded d-flex position-relative">
-
                     {{-- FOTO --}}
                     <img src="{{ asset('storage/'.$menu->gambar) }}"
                         class="rounded-start object-fit-cover img-wrapper"
                         style="max-width:120px;"
                         alt="{{ $menu->nama_menu }}">
-
                     <div class="p-2 flex-grow-1">
                         {{-- ISI --}}
                         <div class="mb-1">
@@ -77,7 +73,6 @@
                                 {{ $menu->rates_count }} komentar
                             </span>
                         </div>
-
                         {{-- BUTTON --}}
                         <div class="d-flex flex-wrap gap-1 mt-2">
                             <button class="btn btn-outline-secondary btn-sm btn-wrapper"
@@ -85,13 +80,11 @@
                                 data-bs-target="#detailModal{{ $menu->id }}">
                                 Details
                             </button>
-
                             <button class="btn btn-outline-info btn-sm btn-wrapper"
                                 data-bs-toggle="modal"
                                 data-bs-target="#editModal{{ $menu->id }}">
                                 Edit
                             </button>
-
                             <button class="btn btn-outline-danger btn-sm btn-wrapper"
                                 data-bs-toggle="modal"
                                 data-bs-target="#hapusModal{{ $menu->id }}">
@@ -101,7 +94,6 @@
                     </div>
                 </div>
             </div>
-
             {{-- ================= MODAL DETAIL ================= --}}
             <div class="modal fade" id="detailModal{{ $menu->id }}" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -136,20 +128,17 @@
                     </div>
                 </div>
             </div>
-
             {{-- ================= MODAL EDIT ================= --}}
             <div class="modal fade" id="editModal{{ $menu->id }}" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">
                         <div class="modal-body">
                             <h5 class="fw-bold mb-3 text-center">Edit Menu</h5>
-
                             <form action="{{ route('admin.menu.update', $menu->id) }}"
                                 method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-
                                 <div class="mb-3">
                                     <label class="fw-bold">Nama Menu</label>
                                     <input type="text"
@@ -158,7 +147,6 @@
                                         class="form-control"
                                         required>
                                 </div>
-
                                 <div class="mb-3">
                                     <label class="fw-bold">Subjudul</label>
                                     <input type="text"
@@ -167,7 +155,6 @@
                                         class="form-control"
                                         required>
                                 </div>
-
                                 <div class="mb-3">
                                     <label class="fw-bold">Deskripsi</label>
                                     <textarea name="deskripsi"
@@ -175,12 +162,10 @@
                                         rows="4"
                                         required>{{ $menu->deskripsi }}</textarea>
                                 </div>
-
                                 <div class="mb-3">
                                     <label class="fw-bold">Gambar</label>
                                     <input type="file" name="gambar" class="form-control">
                                 </div>
-
                                 <button class="btn btn-primary w-100">
                                     Simpan Perubahan
                                 </button>
@@ -189,7 +174,6 @@
                     </div>
                 </div>
             </div>
-
             {{-- ================= MODAL HAPUS ================= --}}
             <div class="modal fade" id="hapusModal{{ $menu->id }}" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered">
@@ -199,28 +183,23 @@
                             <button class="btn-close btn-close-white"
                                 data-bs-dismiss="modal"></button>
                         </div>
-
                         <div class="modal-body">
                             Yakin ingin menghapus menu
                             <strong>{{ $menu->nama_menu }}</strong>?
                         </div>
-
                         <div class="modal-footer">
                             <button class="btn btn-secondary"
                                 data-bs-dismiss="modal">Batal</button>
-
                             <form action="{{ route('admin.menu.destroy', $menu->id) }}"
                                 method="POST">
                                 @csrf
                                 @method('DELETE')
-
                                 <button class="btn btn-danger"
                                     {{ $menu->rates_count > 0 ? 'disabled' : '' }}>
                                     Ya, Hapus
                                 </button>
                             </form>
                         </div>
-
                         @if ($menu->rates_count > 0)
                             <div class="text-center text-danger small pb-3">
                                 Menu ini memiliki komentar, tidak bisa dihapus
@@ -229,7 +208,6 @@
                     </div>
                 </div>
             </div>
-
         @empty
             <p class="text-center text-muted">Belum ada menu</p>
         @endforelse
