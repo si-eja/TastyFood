@@ -141,6 +141,11 @@ class PageController extends Controller
      * LOKASI (USER)
      * ========================
      */
+    public function public()
+    {
+        $data['lokasi'] = Lokasi::first();
+        return view('kontak', $data);
+    }
 
     /**
      *========================= 
@@ -155,22 +160,24 @@ class PageController extends Controller
         ];
     }
 
-    public function public()
-    {
-        $data['lokasi'] = Lokasi::first();
-        return view('kontak', $data);
-    }
     /* =========================
      * ADMIN PAGES
      * ========================= */
 
-    public function admin()
+    public function admin(Request $request)
     {
         $data['totalBerita'] = Berita::count();
         $data['totalMenu']   = Menu::count();
         $data['totalGaleri'] = Galeri::where('section', 'thumbnail')->count();
         $data['location'] = Lokasi::first();
         $data['user'] = User::first();
+        $query = Kontak::query();
+        $data['kontak'] = $query->orderBy('is_read')
+                         ->latest()
+                         ->get();
+        $data['menus'] = Menu::withCount('rates')
+            ->latest()
+            ->get();
         return view('admin.dashadm', $data);
     }
 

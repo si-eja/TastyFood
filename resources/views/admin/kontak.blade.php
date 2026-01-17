@@ -1,5 +1,24 @@
 @extends('admin.tempdash')
 @section('content')
+{{-- STYLE BADGE --}}
+<style>
+.status-badge{
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: .8rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.status-unread{
+    background: #0d6efd;
+    color: #fff;
+}
+.status-read{
+    background: #f1f3f5;
+    color: #495057;
+    border: 1px solid #dee2e6;
+}
+</style>
 <section class="container-fluid bg-light" style="min-height:100vh;">
     <div class="container py-5">
         {{-- SEARCH --}}
@@ -75,12 +94,10 @@
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5>{{ $kontak->subject }}</h5>
-                                <button class="btn-close" data-bs-dismiss="modal"></button>
+                                <small class="text-muted">{{ $kontak->email }}</small>
                             </div>
                             <div class="modal-body">
-                                <p>{{ $kontak->message }}</p>
-                                <small class="text-muted">{{ $kontak->email }}</small>
+                                <p><strong>{{ $kontak->subject }}: </strong>{{ $kontak->message }}</p>
                             </div>
                         </div>
                     </div>
@@ -93,25 +110,7 @@
         </form>
     </div>
 </section>
-{{-- STYLE BADGE --}}
-<style>
-.status-badge{
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: .8rem;
-    font-weight: 500;
-    white-space: nowrap;
-}
-.status-unread{
-    background: #0d6efd;
-    color: #fff;
-}
-.status-read{
-    background: #f1f3f5;
-    color: #495057;
-    border: 1px solid #dee2e6;
-}
-</style>
+
 {{-- SCRIPT --}}
 <script>
 /* ===============================

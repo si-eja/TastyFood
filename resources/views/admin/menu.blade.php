@@ -116,7 +116,6 @@
                                     <p class="text-muted">{{ $menu->subjudul }}</p>
                                     <p>{{ $menu->deskripsi }}</p>
                                 </div>
-
                                 <div class="col-md-7" style="max-height: 480px; overflow-y: auto;">
                                     <h5 class="fw-bold mb-3">Komentar</h5>
                                     <div class="konten-wrapper pe-2">

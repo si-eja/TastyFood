@@ -12,7 +12,7 @@ class AdminController extends Controller
     public function kontak(Request $request)
     {
         $query = Kontak::query();
-
+        
         // SEARCH
         if ($request->search) {
             $query->where(function ($q) use ($request) {

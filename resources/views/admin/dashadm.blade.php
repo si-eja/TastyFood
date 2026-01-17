@@ -33,7 +33,22 @@
         height: 100%;
         border: 0;
     }
- 
+    .status-badge{
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: .8rem;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+    .status-unread{
+        background: #0d6efd;
+        color: #fff;
+    }
+    .status-read{
+        background: #f1f3f5;
+        color: #495057;
+        border: 1px solid #dee2e6;
+    }
 </style>
 <section class="container-fluid bg-light" style="height: 100vh;">
     <div class="container py-5">
@@ -88,88 +103,63 @@
                     </div>
                 </div>
                 {{-- Data Menu --}}
-                <div class="my-3">
-                    <div class="rounded p-3 bg-light shadow">
-                        <h4 class="fw-bold mb-3">Kilas Menu</h4>
-                        <hr>
-                        <div class="overflow-y-scroll"></div>
-                        <div class="row g-2">
-                            <div class="col-md-6">
-                                <div class="h-100 shadow-sm rounded d-flex position-relative border-dark border">
-                                    {{-- FOTO --}}
-                                    <img src="{{ asset('ASET/anh-nguyen-kcA-c3f_3FE-unsplash.jpg') }}"
-                                        class="rounded-start object-fit-cover img-wrapper"
-                                        style="max-width:120px;"
-                                        alt="Menu">
-                                    <div class="p-2 flex-grow-1">
-                                        {{-- ISI --}}
-                                        <div class="mb-1">
-                                            <h6 class="fw-bold mb-1">Menu Nama</h6>
-                                            <p class="text-muted mb-0">Submenu</p>
-                                        </div>
-                                        {{-- BUTTON --}}
-                                        <div class="d-flex flex-wrap gap-1">
-                                            <button type="button"
-                                                class="border btn btn-outline-secondary btn-sm btn-wrapper w-100"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#menuModal">
-                                                Details
-                                            </button>
-                                        </div>
+                <div class="rounded p-3 bg-light shadow overflow-y-scroll" style="height: 350px;">
+                    <h4 class="fw-bold mb-3">Kilas Menu</h4>
+                    <hr>
+                    <div class="overflow-y-scroll"></div>
+                    <div class="row g-2">
+                        @forelse ($menus as $menu)
+                        <div class="col-md-6">
+                            <div class="h-100 shadow-sm rounded d-flex position-relative border-dark border">
+                                {{-- FOTO --}}
+                                <img src="{{ asset('menu/'.$menu->gambar) }}"
+                                    class="rounded-start object-fit-cover img-wrapper"
+                                    style="max-width:120px;"
+                                    alt="Menu">
+                                <div class="p-2 flex-grow-1">
+                                    {{-- ISI --}}
+                                    <div class="mb-1">
+                                        <h6 class="fw-bold mb-1">{{ $menu->nama_menu }}</h6>
+                                        <p class="text-muted mb-0">{{ $menu->subjudul }}</p>
+                                    </div>
+                                    {{-- BUTTON --}}
+                                    <div class="d-flex flex-wrap gap-1">
+                                        <button type="button"
+                                            class="border btn btn-outline-secondary btn-sm btn-wrapper w-100"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#detailModal{{ $menu->id }}">
+                                            Details
+                                        </button>
                                     </div>
                                 </div>
-                                {{-- Modal Details --}}
-                                <div class="modal fade" id="menuModal" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <div class="row g-2">
-                                                    <div class="col-md-5">
-                                                        <div class="konten-wrapper">
-                                                            <img src="{{ asset('ASET/anh-nguyen-kcA-c3f_3FE-unsplash.jpg') }}"
-                                                                class="w-100 rounded mb-3 object-fit-cover" alt="" style="max-height: 280px">
-                                                            <h4 class="fw-bold">Nama Menu</h4>
-                                                            <p class="text-muted">Subjudul Menu</p>
-                                                            <p>
-                                                                Deskripsi lengkap tentang menu ini. Lorem ipsum dolor sit amet,
-                                                                consectetur adipiscing elit.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <!-- KANAN : KOMENTAR -->
-                                                    <div class="col-md-7">
-                                                        <h5 class="fw-bold mb-3">Komentar</h5>
-                                                        <div class="konten-wrapper pe-2">
-                                                            <!-- KOMENTAR ITEM -->
+                            </div>
+                            {{-- Modal Details --}}
+                            <div class="modal fade" id="detailModal{{ $menu->id }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="row g-2">
+                                                <div class="col-md-5" style="max-height: 480px; overflow-y: auto;">
+                                                    <img src="{{ asset('storage/'.$menu->gambar) }}"
+                                                        class="w-100 rounded mb-2"
+                                                        style="max-height:280px; object-fit:cover">
+                                                    <h4 class="fw-bold">{{ $menu->nama_menu }}</h4>
+                                                    <p class="text-muted">{{ $menu->subjudul }}</p>
+                                                    <p>{{ $menu->deskripsi }}</p>
+                                                </div>
+                                                <div class="col-md-7" style="max-height: 480px; overflow-y: auto;">
+                                                    <h5 class="fw-bold mb-3">Komentar</h5>
+                                                    <div class="konten-wrapper pe-2">
+                                                        @forelse ($menu->rates as $rate)
                                                             <div class="rounded shadow-sm my-2 p-3 border">
-                                                                <span>
-                                                                    <strong>Note:</strong> Makanannya enak dan lezat, pelayanan cepat
-                                                                    dan ramah. Suasana restoran nyaman untuk bersantai.
-                                                                </span>
-                                                                <div class="d-flex justify-content-between border-top pt-2 mt-2 text-muted">
-                                                                    <div>
-                                                                        <strong>Menu:</strong> Spaghetti Bolognese
-                                                                    </div>
-                                                                    <div>
-                                                                        <strong>Tanggal:</strong> 2024-06-15
-                                                                    </div>
+                                                                <strong>Note:</strong> {{ $rate->komentar }}
+                                                                <div class="text-muted small border-top pt-2 mt-2">
+                                                                    {{ $rate->created_at->format('d M Y') }}
                                                                 </div>
                                                             </div>
-                                                            <!-- DUPLIKASI KOMENTAR -->
-                                                            <div class="rounded shadow-sm my-2 p-3 border">
-                                                                <span>
-                                                                    <strong>Note:</strong> Porsi pas, rasa mantap, harga sesuai.
-                                                                </span>
-                                                                <div class="d-flex justify-content-between border-top pt-2 mt-2 text-muted">
-                                                                    <div>
-                                                                        <strong>Menu:</strong> Spaghetti Bolognese
-                                                                    </div>
-                                                                    <div>
-                                                                        <strong>Tanggal:</strong> 2024-06-12
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                        @empty
+                                                            <p class="text-muted text-center">Belum ada komentar</p>
+                                                        @endforelse
                                                     </div>
                                                 </div>
                                             </div>
@@ -178,6 +168,11 @@
                                 </div>
                             </div>
                         </div>
+                        @empty
+                            <div class="text-center text-muted py-5 w-100">
+                                Tidak ada menu tersedia.
+                            </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -186,42 +181,41 @@
                 <div class="rounded bg-light shadow p-3" style="height: 100%;">
                     <h4 class="fw-bold mb-3">Pesan Masuk</h4>
                     <div style="overflow-y: scroll; height: 295px; padding-right: 10px;">
-                        <button     
-                            class="btn w-100 text-start py-1 border-top border-bottom bg-transparent"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalPesan">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h5 class="mb-1">Pengirim-1</h5>
-                                    <small class="text-muted">email@gmail.com</small>
+                        @forelse ($kontak as $pesan)
+                            <button     
+                                class="btn w-100 text-start py-1 mb-2 border-0 bg-transparent shadow-sm rounded"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modal{{ $pesan->id }}"
+                                onclick="tandaiDibaca({{ $pesan->id }})">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-1">{{ $pesan->pengirim }}</h5>
+                                        <small class="text-muted">{{ $pesan->email }}</small>
+                                    </div>
+                                    <span id="badge-{{ $pesan->id }}">
+                                        {{ $pesan->is_read ? 'Dibaca' : 'Belum Dibaca' }}
+                                    </span>
                                 </div>
-                                <span class="badge bg-secondary">
-                                    Belum Dibaca
-                                </span>
+                            </button>
+                            {{-- MODAL PESAN --}}
+                            <div class="modal fade" id="modal{{ $pesan->id }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Pesan dari {{ $pesan->pengirim }}</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><strong>{{ $pesan->subject }}: </strong>{{ $pesan->message }}</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </button>
+                        @empty
+                            <div class="text-center">
+                                Tidak ada pesan masuk.
+                            </div>
+                        @endforelse
 
-                        {{-- MODAL PESAN --}}
-                        <div class="modal fade" id="modalPesan" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Pesan dari Pengirim-1</h5>
-                                        <button class="btn-close" data-bs-dismiss="modal"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>
-                                            Ini adalah contoh isi pesan.<br>
-                                            Digunakan hanya untuk dummy tampilan admin panel.
-                                        </p>
-                                        <small class="text-muted">email@gmail.com</small>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -377,6 +371,21 @@ function confirmUpdate() {
     if (confirm('Apakah Anda yakin ingin mengubah nomor HP / email?')) {
         document.getElementById('updateForm').submit();
     }
+}
+function tandaiDibaca(id){
+    fetch(`/admin/kontak/${id}/dibaca`, {
+        method: 'PATCH',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    }).then(() => {
+        const badge = document.getElementById('badge-' + id);
+        if (badge) {
+            badge.classList.remove('status-unread');
+            badge.classList.add('status-read');
+            badge.innerText = 'Dibaca';
+        }
+    });
 }
 </script>
 @endsection
