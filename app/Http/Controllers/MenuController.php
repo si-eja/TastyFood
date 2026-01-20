@@ -19,7 +19,7 @@ class MenuController extends Controller
             'nama_menu' => 'required|max:150',
             'subjudul'  => 'nullable|max:150',
             'deskripsi' => 'required',
-            'gambar'    => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar'    => 'required|image|mimes:jpg,jpeg,png,webp|max:10128',
         ]);
 
         $path = $request->file('gambar')->store('menu', 'public');
@@ -44,7 +44,7 @@ class MenuController extends Controller
             'nama_menu' => 'required|max:150',
             'subjudul'  => 'nullable|max:150',
             'deskripsi' => 'required',
-            'gambar'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:10128',
         ]);
 
         if ($request->hasFile('gambar')) {

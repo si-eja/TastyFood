@@ -32,9 +32,7 @@ class PageController extends Controller
             ->get();
 
         // Galeri home (6 thumbnail)
-        $galeriHome = Galeri::where('section', 'thumbnail')
-            ->limit(6)
-            ->get();
+        $galeriHome = Galeri::where('section', 'thumbnail')->get();
 
         // Tentang kami
         $tentang = Tentang::first();

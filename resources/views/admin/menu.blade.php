@@ -134,42 +134,65 @@
                     <div class="modal-content">
                         <div class="modal-body">
                             <h5 class="fw-bold mb-3 text-center">Edit Menu</h5>
-                            <form action="{{ route('admin.menu.update', $menu->id) }}"
-                                method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                @method('PUT')
-                                <div class="mb-3">
-                                    <label class="fw-bold">Nama Menu</label>
-                                    <input type="text"
-                                        name="nama_menu"
-                                        value="{{ $menu->nama_menu }}"
-                                        class="form-control"
-                                        required>
+                            <div class="row g-2">
+                                <div class="col-md-5">
+                                    <div class="rounded shadow-sm border">
+                                        {{-- Preview Edit --}}
+                                        <div id="editPreview{{ $menu->id }}"
+                                            class="bg-secondary rounded-top text-center"
+                                            style="height:280px; overflow:hidden;">
+                                            <img src="{{ asset('storage/' . $menu->gambar) }}"
+                                                class="w-100 h-100"
+                                                style="object-fit:cover;">
+                                        </div>
+                                        <div class="text-center text-muted py-2">
+                                            Gambar Saat Ini
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="fw-bold">Subjudul</label>
-                                    <input type="text"
-                                        name="subjudul"
-                                        value="{{ $menu->subjudul }}"
-                                        class="form-control"
-                                        required>
+                                <div class="col-md-7">
+                                    <form action="{{ route('admin.menu.update', $menu->id) }}"
+                                        method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="mb-3">
+                                            <label class="fw-bold">Nama Menu</label>
+                                            <input type="text"
+                                                name="nama_menu"
+                                                value="{{ $menu->nama_menu }}"
+                                                class="form-control"
+                                                required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="fw-bold">Subjudul</label>
+                                            <input type="text"
+                                                name="subjudul"
+                                                value="{{ $menu->subjudul }}"
+                                                class="form-control"
+                                                required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="fw-bold">Deskripsi</label>
+                                            <textarea name="deskripsi"
+                                                class="form-control"
+                                                rows="4"
+                                                required>{{ $menu->deskripsi }}</textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="fw-bold">Gambar</label>
+                                            <input type="file"
+                                                name="gambar"
+                                                class="form-control editImageInput"
+                                                data-preview="editPreview{{ $menu->id }}"
+                                                accept="image/*">
+                                        </div>
+                                        <button class="btn btn-primary w-100">
+                                            Simpan Perubahan
+                                        </button>
+                                    </form>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="fw-bold">Deskripsi</label>
-                                    <textarea name="deskripsi"
-                                        class="form-control"
-                                        rows="4"
-                                        required>{{ $menu->deskripsi }}</textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="fw-bold">Gambar</label>
-                                    <input type="file" name="gambar" class="form-control">
-                                </div>
-                                <button class="btn btn-primary w-100">
-                                    Simpan Perubahan
-                                </button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -222,12 +245,9 @@
                             <div class="col-md-5">
                                 <div class="rounded shadow-sm border">
                                     <!-- PREVIEW GAMBAR -->
-                                    <div class="bg-secondary rounded-top text-center">
-                                        <img id="previewImage"
-                                            src=""
-                                            class="img-fluid d-none rounded-top"
-                                            style="max-height: 220px; object-fit: cover;">
-                                        <i id="previewIcon" class="fa fa-image text-white fs-1 m-5"></i>
+                                    <div class="bg-secondary rounded-top text-center"
+                                        id="previewImage"
+                                        style="height: 280px; position: relative; overflow: hidden;">
                                     </div>
                                     <div class="text-center text-muted py-2">
                                         Preview Gambar Menu
@@ -257,12 +277,14 @@
                                         <textarea name="deskripsi"
                                                 class="form-control"
                                                 rows="4"
-                                                required></textarea>
+                                                required>
+                                        </textarea>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label fw-bold">Gambar</label>
                                         <input type="file"
                                             name="gambar"
+                                            id="inputGambar"
                                             class="form-control"
                                             accept="image/*"
                                             required>
@@ -279,4 +301,46 @@
         </div>
     </div>
 </section>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function previewImage(input, previewElement) {
+        const file = input.files[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+            alert('File harus berupa gambar!');
+            input.value = '';
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            previewElement.innerHTML = `
+                <img src="${e.target.result}"
+                     class="w-100 h-100"
+                     style="object-fit: cover;">
+            `;
+        };
+        reader.readAsDataURL(file);
+    }
+    /* ========= ADD MODAL ========= */
+    const addInput = document.getElementById('inputGambar');
+    const addPreview = document.getElementById('previewImage');
+
+    if (addInput && addPreview) {
+        addInput.addEventListener('change', function () {
+            previewImage(this, addPreview);
+        });
+    }
+    /* ========= EDIT MODAL (MULTI) ========= */
+    document.querySelectorAll('.editImageInput').forEach(input => {
+        input.addEventListener('change', function () {
+            const previewId = this.dataset.preview;
+            const preview = document.getElementById(previewId);
+
+            if (preview) {
+                previewImage(this, preview);
+            }
+        });
+    });
+});
+</script>
 @endsection

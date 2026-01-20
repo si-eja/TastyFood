@@ -112,7 +112,7 @@
                         <div class="col-md-6">
                             <div class="h-100 shadow-sm rounded d-flex position-relative border-dark border">
                                 {{-- FOTO --}}
-                                <img src="{{ asset('menu/'.$menu->gambar) }}"
+                                <img src="{{ asset('storage/'.$menu->gambar) }}"
                                     class="rounded-start object-fit-cover img-wrapper"
                                     style="max-width:120px;"
                                     alt="Menu">

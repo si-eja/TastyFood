@@ -307,30 +307,49 @@
 <section class="py-5">
     <div class="container">
         <h2 class="fw-bold mb-4 text-center">Galeri Kami</h2>
+
         @if($galeriHome->count())
             <div class="row g-3">
-                @foreach($galeriHome as $item)
-                    <div class="col-md-4">
+                @foreach($galeriHome as $index => $item)
+                    <div class="col-md-4 galeri-item-wrapper
+                        {{ $index >= 6 ? 'collapse galeri-collapse' : '' }}">
                         <div class="galeri-item h-img">
-                            <img 
-                                src="{{ asset('storage/'.$item->image) }}" 
-                                alt="{{ $item->caption ?? 'Galeri' }}"
-                            >
+                            <img src="{{ asset('storage/'.$item->image) }}"
+                                 alt="{{ $item->caption ?? 'Galeri' }}">
                         </div>
                     </div>
                 @endforeach
             </div>
-            <div class="py-4 d-flex justify-content-center">
-                <a href="{{ route('galeri') }}" class="btn btn-dark rounded-1 py-2 px-5">
-                    LIHAT LEBIH BANYAK
-                </a>
-            </div>
+
+            @if($galeriHome->count() > 6)
+                <div class="py-4 d-flex justify-content-center">
+                    <button class="btn btn-dark rounded-1 py-2 px-5"
+                            data-bs-toggle="collapse"
+                            data-bs-target=".galeri-collapse"
+                            aria-expanded="false"
+                            id="btnToggleGaleri">
+                        LIHAT LEBIH BANYAK
+                    </button>
+                </div>
+            @endif
         @else
-            {{-- EMPTY STATE --}}
             <div class="text-center text-muted py-5">
                 <p class="mb-2">Galeri belum tersedia</p>
             </div>
         @endif
     </div>
 </section>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.getElementById('btnToggleGaleri');
+    if (!btn) return;
+
+    btn.addEventListener('click', function () {
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        this.textContent = expanded
+            ? 'TUTUP GALERI'
+            : 'LIHAT LEBIH BANYAK';
+    });
+});
+</script>
 @endsection

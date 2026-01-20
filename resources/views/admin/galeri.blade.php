@@ -82,8 +82,14 @@
                                         value="{{ $item->title }}">
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button class="btn btn-primary">Simpan</button>
+                                    <button type="button"
+                                            class="btn btn-secondary"
+                                            data-bs-dismiss="modal">
+                                        Batal
+                                    </button>
+                                    <button type="submit" class="btn btn-primary">
+                                        Simpan
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -102,8 +108,14 @@
                                     Yakin hapus banner?
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                    <button class="btn btn-danger">Hapus</button>
+                                    <button type="button"
+                                            class="btn btn-secondary"
+                                            data-bs-dismiss="modal">
+                                        Batal
+                                    </button>
+                                    <button type="submit" class="btn btn-danger">
+                                        Hapus
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -135,36 +147,36 @@
                             <input type="file" name="image" class="form-control mb-2" required>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button class="btn btn-primary">Simpan</button>
+                            <button type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal">
+                                Batal
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Simpan
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
-
 {{-- ================= GALERI ================= --}}
 <div class="rounded shadow p-2">
     <h5 class="fw-bold">Semua Galeri</h5>
     <hr>
-
     <div class="row g-3">
-
         @foreach($galeris as $g)
         <div class="col-6 col-md-3">
             <div class="thumb-wrapper position-relative">
                 <img src="{{ asset('storage/'.$g->image) }}" class="thumb-img">
-
                 <div class="thumb-overlay">
                     <button class="btn btn-sm btn-light me-2"
                         data-bs-toggle="modal"
                         data-bs-target="#modalEdit{{ $g->id }}">
                         <i class="fa fa-pen"></i>
                     </button>
-
                     <button class="btn btn-sm btn-danger"
                         data-bs-toggle="modal"
                         data-bs-target="#modalHapus{{ $g->id }}">
@@ -173,7 +185,6 @@
                 </div>
             </div>
         </div>
-
         {{-- EDIT --}}
         <div class="modal fade" id="modalEdit{{ $g->id }}">
             <div class="modal-dialog modal-dialog-centered">
@@ -181,25 +192,27 @@
                     <form action="{{ route('galeri.update',$g->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf @method('PUT')
                         <input type="hidden" name="section" value="{{ $g->section }}">
-
                         <div class="modal-header">
                             <h5>Edit Gambar</h5>
                         </div>
-
                         <div class="modal-body">
-                            <img src="{{ asset('storage/'.$g->image) }}" class="img-fluid mb-2">
+                            <img src="{{ asset('storage/'.$g->image) }}" class="object-fit-cover mb-2 w-100" style="max-height: 320px;">
                             <input type="file" name="image" class="form-control">
                         </div>
-
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button class="btn btn-primary">Simpan</button>
+                            <button type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal">
+                                Batal
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Simpan
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
         {{-- HAPUS --}}
         <div class="modal fade" id="modalHapus{{ $g->id }}">
             <div class="modal-dialog modal-dialog-centered">
@@ -210,21 +223,24 @@
                         <div class="modal-header">
                             <h5 class="text-danger">Hapus</h5>
                         </div>
-
                         <div class="modal-body">
                             Yakin hapus gambar?
                         </div>
-
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button class="btn btn-danger">Hapus</button>
+                            <button type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal">
+                                Batal
+                            </button>
+                            <button type="submit" class="btn btn-danger">
+                                Hapus
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         @endforeach
-
         {{-- TAMBAH GALERI --}}
         <div class="col-6 col-md-3">
             <div class="thumb-wrapper d-flex align-items-center justify-content-center border">
@@ -235,34 +251,34 @@
                 </button>
             </div>
         </div>
-
         <div class="modal fade" id="modalTambahGaleri">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <form action="{{ route('galeri.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="section" value="thumbnail">
-
                         <div class="modal-header">
                             <h5>Tambah Galeri</h5>
                         </div>
-
                         <div class="modal-body">
                             <input type="file" name="image" class="form-control" required>
                         </div>
-
                         <div class="modal-footer">
-                            <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button class="btn btn-primary">Simpan</button>
+                            <button type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal">
+                                Batal
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                Simpan
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
-
 </div>
 </section>
 @endsection

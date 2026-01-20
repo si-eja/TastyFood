@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
 
         // Lokasi default
         Lokasi::create([
-            'nama_lokasi' => 'Cimindi, Bandung',
+            'nama_lokasi' => 'Cimahi, Bandung',
             'map_embed' => 'https://www.google.com/maps?q=Cimahi,+Jawa+Barat&output=embed'
         ]);
     }

@@ -18,12 +18,12 @@
                 <span>{{ $tentang->about_desc_2 }}</span>
                 <div class="row g-1 mt-2">
                     <div class="col-md-6 p-2">
-                        <img src="{{ asset('ASET/'.$tentang->about_image_1) }}"
+                        <img src="{{ asset('storage/tentang/'.$tentang->about_image_1) }}"
                             class="object-fit-cover rounded-4"
                             style="width:100%; height:100%; max-height:390px;">
                     </div>
                     <div class="col-md-6 p-2">
-                        <img src="{{ asset('ASET/'.$tentang->about_image_2) }}"
+                        <img src="{{ asset('storage/tentang/'.$tentang->about_image_2) }}"
                             class="object-fit-cover rounded-4"
                             style="width:100%; height:100%; max-height:390px;">
                     </div>
