@@ -85,7 +85,6 @@
                             <a href="{{ route('admin.berita.detail', $item->slug) }}">
                                 Baca →
                             </a>
-
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
                                     Aksi

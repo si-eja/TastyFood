@@ -10,15 +10,15 @@
     <title>Tasty Food</title>
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #f2f2f2;
         }
         /* SIDEBAR DESKTOP */
         .sidebar {
             width: 260px;
             height: 100vh;
             position: fixed;
-            background: #fff;
-            border-right: 1px solid #e5e5e5;
+            background: #000000;
+            border-right: 1px solid #0e0e0e;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -29,7 +29,7 @@
         }
         .sidebar a {
             text-decoration: none;
-            color: #333;
+            color: #f2f2f2;
             padding: 10px 14px;
             border-radius: 8px;
             margin-bottom: 8px;
@@ -39,8 +39,8 @@
         }
         .sidebar a:hover,
         .sidebar a.active {
-            background-color: #000;
-            color: #fff;
+            background-color: #ffffff;
+            color: #000000;
         }
         .sidebar .logout {
             margin-top: auto;
@@ -52,14 +52,15 @@
         }
         /* OFFCANVAS MOBILE */
         .offcanvas {
+            background-color: #0e0e0e;
             width: 280px;
         }
         .offcanvas-header {
-            border-bottom: 1px solid #e5e5e5;
+            border-bottom: 1px solid #0e0e0e;
         }
         .mobile-menu a {
             text-decoration: none;
-            color: #333;
+            color: #f2f2f2;
             padding: 12px 14px;
             border-radius: 10px;
             display: flex;
@@ -70,8 +71,8 @@
         }
         .mobile-menu a:hover,
         .mobile-menu a.active {
-            background-color: #000;
-            color: #fff;
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
         }
         .mobile-menu .logout {
             margin-top: auto;
@@ -95,13 +96,13 @@
             <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">
                 <div class="fa-solid fa-bars"></div>
             </button>
-            <span class="fw-bold">Admin Dashboard</span>
+            <span class="fw-bold text-white">Admin Dashboard</span>
         </div>
     </nav>
     {{-- OFFCANVAS MOBILE --}}
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title fw-bold">Tasty Food Admin</h5>
+            <h5 class="offcanvas-title fw-bold text-white">Tasty Food Admin</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body d-flex flex-column mobile-menu">
@@ -130,6 +131,13 @@
                 <i class="fa-solid fa-bowl-food"></i> Menu
             </a>
             <div class="logout d-flex flex-column">
+                <div class="d-flex justify-content-start align-items-center mb-3">
+                    <i class="fa-regular fa-circle-user fs-1 text-white"></i>
+                    <div class="px-2 pt-3 align-items-center text-white">
+                        <span class="fw-bold">{{ $adminGlobal->name }}</span>
+                        <p class="text-white">{{ $adminGlobal->email }}</p>
+                    </div>
+                </div>
                 <a href="{{ route('logout.authenticate') }}"
                 class="btn btn-danger text-white w-100 d-flex justify-content-center align-items-center gap-2">
                     <i class="fa-solid fa-right-from-bracket"></i> Logout
@@ -139,7 +147,7 @@
     </div>
     {{-- SIDEBAR DESKTOP --}}
     <div class="sidebar d-none d-lg-flex">
-        <h5>Tasty Food Admin</h5>
+        <h5 class="text-white">Tasty Food Admin</h5>
         <a href="{{ route('admin') }}"
         class="{{ request()->routeIs('admin') ? 'active' : '' }}">
             <i class="fa-solid fa-gauge"></i> Dashboard
@@ -166,10 +174,10 @@
         </a>
         <div class="logout d-flex flex-column">
             <div class="d-flex justify-content-start align-items-center mb-3">
-                <i class="fa-regular fa-circle-user fs-1"></i>
-                <div class="px-2 pt-3 align-items-center">
+                <i class="fa-regular fa-circle-user fs-1 text-white"></i>
+                <div class="px-2 pt-3 align-items-center text-white">
                     <span class="fw-bold">{{ $adminGlobal->name }}</span>
-                    <p class="text-muted">{{ $adminGlobal->email }}</p>
+                    <p class="text-white">{{ $adminGlobal->email }}</p>
                 </div>
             </div>
             <a href="{{ route('logout.authenticate') }}"
