@@ -87,9 +87,57 @@
                 padding: 0px;
             }
         }
+        .alert {
+            animation: slideIn .3s ease;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
+    {{-- FLOATING ALERT --}}
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 9999; width: 350px;">
+
+        {{-- SUCCESS --}}
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show shadow" role="alert">
+                <strong>Berhasil!</strong><br>
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
+        {{-- ERROR --}}
+        @if(session('error'))
+            <div class="alert alert-danger alert-dismissible fade show shadow" role="alert">
+                <strong>Gagal!</strong><br>
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
+        {{-- VALIDATION --}}
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show shadow" role="alert">
+                <strong>Error:</strong>
+                <ul class="mb-0 mt-1">
+                    @foreach ($errors->all() as $err)
+                        <li>{{ $err }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
+    </div>
     {{-- NAVBAR MOBILE --}}
     <nav class="navbar navbar-light bg-white border-bottom d-lg-none">
         <div class="container-fluid">
@@ -174,7 +222,12 @@
         </a>
         <div class="logout d-flex flex-column">
             <div class="d-flex justify-content-start align-items-center mb-3">
-                <i class="fa-regular fa-circle-user fs-1 text-white"></i>
+                {{-- nahh yang ini --}}
+                <i class="fa-regular fa-circle-user fs-1 text-white"
+                    style="cursor:pointer"
+                    data-bs-toggle="modal"
+                    data-bs-target="#profileModal">
+                </i>
                 <div class="px-2 pt-3 align-items-center text-white">
                     <span class="fw-bold">{{ $adminGlobal->name }}</span>
                     <p class="text-white">{{ $adminGlobal->email }}</p>
@@ -189,6 +242,54 @@
     {{-- CONTENT --}}
     <div class="content-wrapper">
         @yield('content')
+    </div>
+    <div class="modal fade" id="profileModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Profile</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form method="POST" action="{{ route('admin.updateA') }}">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label>Nama</label>
+                            <input type="text" name="name" class="form-control"
+                                value="{{ $adminGlobal->name }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>No HP</label>
+                            <input type="text" name="nomor_hp" class="form-control"
+                                value="{{ $adminGlobal->nomor_hp }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Email (opsional)</label>
+                            <input type="email" name="email" class="form-control"
+                                value="{{ $adminGlobal->email }}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Password (opsional)</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>
@@ -215,4 +316,11 @@ document.addEventListener('DOMContentLoaded', function () {
         reader.readAsDataURL(file);
     });
 });
+setTimeout(() => {
+    let alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+        let bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+    });
+}, 4000); // 4 detik hilang
 </script>

@@ -63,9 +63,10 @@ Route::middleware('admin.auth')->group(function () {
          * DASHBOARD
          */
         Route::get('/', [PageController::class, 'admin'])->name('admin');
-        Route::post('/admin=/update', [AdminController::class, 'update'])
+        Route::post('/admin/update', [AdminController::class, 'update'])
         ->name('admin.service.update');
-    
+        Route::put('/profile', [AdminController::class, 'updateA'])
+        ->name('admin.updateA');
         /**
          * ADMIN BERITA (CRUD)
          * (tetap pakai POST supaya blade kamu tidak rusak)

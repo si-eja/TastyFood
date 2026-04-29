@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Kontak;
 use App\Models\Service;
 use App\Models\User;
@@ -82,7 +83,37 @@ class AdminController extends Controller
 
         return back()->with('success', 'Data berhasil diperbarui');
     }
+    public function updateA(Request $request)
+    {
+        $admin = Auth::guard('admin')->user();
 
+        $request->validate([
+            'name' => 'required',
+            'nomor_hp' => 'required|max:17|unique:admins,nomor_hp,' . $admin->id,
+            'email' => 'nullable|email|unique:admins,email,' . $admin->id,
+            'password' => 'nullable|min:6'
+        ]);
+
+        $admin->name = $request->name;
+        $admin->nomor_hp = $request->nomor_hp;
+
+        if ($request->filled('email')) {
+            $admin->email = $request->email;
+        }
+
+        if ($request->filled('password')) {
+            $admin->password = bcrypt($request->password);
+        }
+
+        $admin->save();
+
+        try {
+            $admin->save();
+            return back()->with('success', 'Profile berhasil diupdate');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal update profile');
+        }
+    }
     // LOGIN
     public function login(Request $request)
     {
